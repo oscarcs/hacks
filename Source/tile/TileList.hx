@@ -24,6 +24,7 @@ enum RenderType
 {
 	Tile(value:Int);
 	Border(value:BorderValues);
+	Water(value:BorderValues, shorefg:ARGB, shorebg:ARGB);
 }
 
 typedef BorderValues = {
@@ -49,6 +50,7 @@ class TileList
 	//oxox:Int, oxoo:Int, xxoo:Int, ooxx:Int, ooxo:Int, xooo:Int, ooox:Int, xoxo:Int, oooo:Int, oxxo:Int, xoox:Int;
 	
 	public static var blank:RLTile = {
+		tiletype:"none",
 		solid:false,
 		rt:Tile(0),
 		fg:Color.WHITE,
@@ -57,6 +59,7 @@ class TileList
 	};
 	
 	public static var test:RLTile = {
+		tiletype:"test",
 		solid:false,
 		rt:Tile(1),
 		fg:Color.WHITE,
@@ -67,6 +70,7 @@ class TileList
 	/* ********** Indoors ********** */
 	
 	public static var floor:RLTile = {
+		tiletype:"floor",
 		solid:false,
 		rt:Tile(249),
 		fg:Color.WHITE,
@@ -75,6 +79,7 @@ class TileList
 	};
 	
 	public static var border:RLTile = { 
+		tiletype:"border",
 		solid:true, 
 		rt:Border({oxox: 0xB3, oxoo: 0xB4, xxoo: 0xBF, ooxx: 0xC0, 
 			ooxo: 0xC1, xooo: 0xC2, ooox: 0xC3, xoxo: 0xC4, 
@@ -86,13 +91,24 @@ class TileList
 	
 	/* ********** Overworld ********** */
 	
+	public static var water:RLTile = {
+		tiletype:"water",
+		solid:false,
+		rt:Water({oxox: 0xB3, oxoo: 0xB4, xxoo: 0xBF, ooxx: 0xC0, 
+			ooxo: 0xC1, xooo: 0xC2, ooox: 0xC3, xoxo: 0xC4, 
+			oooo: 247, oxxo: 0xD9, xoox: 0xDA }, Color.WHITE, Color.BLACK),
+		fg: { a:255, r:77, g:7, b:255 },
+		bg: Color.BLACK,
+		_ch: true
+	};
+	
 	public static var grass1:RLTile = {
 		tiletype:"grass",
 		solid:false,
 		rt:Tile(34),
 		fg: { a:255, r:108, g:217, b:0 },
 		bg: Color.BLACK,
-		_ch:true,
+		_ch:true
 	};
 	
 	public static var grass2:RLTile = {
@@ -126,6 +142,7 @@ class TileList
 	/* ********** UI ********** */
 	
 	public static var ui_transparent:RLTile = {
+		tiletype:"none",
 		solid:false,
 		rt:Tile(0),
 		fg:Color.WHITE,
@@ -134,6 +151,7 @@ class TileList
 	};
 	
 	public static var ui_back:RLTile = {
+		tiletype:"none",
 		solid:false,
 		rt:Tile(32),
 		fg:Color.WHITE,

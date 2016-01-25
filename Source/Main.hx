@@ -15,11 +15,9 @@ import render.Color;
 import ui.UI;
 import ui.UIMap;
 import world.World;
-import world.WorldMap;
 import tile.TileList;
 import tile.TileUtil;
 import entity.Player;
-
 
 typedef KeyData = {
 	var isPressed:Bool;
@@ -33,7 +31,6 @@ class Main extends Sprite
 	public static var inst:Main;
 	
 	public var panel:Panel;
-	public var worldmap:WorldMap;
 	public var world:World;
 	public var ui:UI;
 	public var player:Player;
@@ -62,14 +59,12 @@ class Main extends Sprite
 		panel = new Panel("assets/tiles9x16.png");
 		panel.draw();
 		
-		worldmap = new WorldMap(40, 40);
-		
-		world = new World(panel.WIDTH, panel.HEIGHT, worldmap);
+		world = new World(400, 400);
 		
 		ui = new UI(0, panel.HEIGHT - 6, panel.WIDTH, 6);
 		ui.init(true, Color.WHITE, Color.BLACK, "| INFO |");
 		
-		var uimap = new UIMap(panel.WIDTH - 14, panel.HEIGHT - 8, 14, 8, worldmap);
+		var uimap = new UIMap(panel.WIDTH - 14, panel.HEIGHT - 8, 14, 8, world);
 		uimap.init(true, Color.WHITE, Color.BLACK, "| MAP |");
 		
 		player = new Player(2, 2, world);

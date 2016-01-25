@@ -78,10 +78,19 @@ class UI implements IRenderable implements ITileable
 		if (xt >= 0 && yt >= 0 && xt < WIDTH && yt < HEIGHT)
 		{
 			var cur = buffer[xt + yt * WIDTH];
+			if (cur.rt != tile.rt || 
+				cur.fg != tile.fg || 
+				cur.bg != tile.bg || 
+				cur.solid != tile.solid ||
+				cur.tiletype != tile.tiletype)
+			{
+				cur._ch = true;
+			}
 			cur.bg = tile.bg;
 			cur.fg = tile.fg;
 			cur.rt = tile.rt;
 			cur.solid = tile.solid;
+			cur.tiletype = tile.tiletype;
 			cur._ch = true;
 		}
 	}
@@ -102,9 +111,21 @@ class UI implements IRenderable implements ITileable
 							{
 								p.write(x + X, y + Y, cur.fg, cur.bg, value);
 							}
+						
 						case Border(values):
 							var val = TileUtil.borderAutoTile(x, y, this, cur, values);
 							p.write(x + X, y + Y, cur.fg, cur.bg, val);
+						
+						case Water(values, shorefg, shorebg):	
+							var val = values.oooo;//TileUtil.waterAutoTile(x, y, this, cur, values);
+							if (val == values.oooo)
+							{
+								p.write(x + X, y + Y, cur.fg, cur.bg, val);
+							}
+							else
+							{
+								p.write(x + X, y + Y, shorefg, shorebg, val);
+							}
 					}
 					cur._ch = false;
 				}

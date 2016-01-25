@@ -21,18 +21,43 @@ class WorldGen
 	
 	public static function resolveHeightmap(val:Int):RLTile
 	{
-		if(val < 120)
+		if (val < 120)
+		{
+			return TileList.get("water");
+		}
+		if(val < 130)
 		{
 			var t = val % 2 == 0 ? "1" : "2";
 			return TileList.get("grass" + t);
 		}
-		else if (val < 145)
+		else if (val < 155)
 		{
 			return TileList.get("tree");
 		}
 		else
 		{
 			return TileList.get("mountain");
+		}
+	}
+	
+	public static function resolveType(val:Float):String
+	{
+		if (val < 120)
+		{
+			return "water";
+		}
+		if(val < 130)
+		{
+			var t = val % 2 == 0 ? "1" : "2";
+			return "grass" + t;
+		}
+		else if (val < 155)
+		{
+			return "tree";
+		}
+		else
+		{
+			return "mountain";
 		}
 	}
 	
@@ -44,6 +69,7 @@ class WorldGen
 	 * @param	heightmap
 	 * @return
 	 */
+	/*
 	public static function resolveChunk(w:Int, h:Int, type:String, heightmap:Array<Int>):Array<RLTile>
 	{
 		var out:Array<RLTile> = [];
@@ -54,6 +80,8 @@ class WorldGen
 				var val:Int = heightmap[x + y * w];
 				switch(type)
 				{
+					case "water":
+						out.push(rh_water(val));
 					case "tree":
 						out.push(rh_tree(val));
 						//out.push(TileList.get("tree"));
@@ -72,6 +100,16 @@ class WorldGen
 			}
 		}
 		return out;
+	}
+	
+	private static function rh_water(val:Int):RLTile
+	{
+		if (val < 125)
+		{
+			return TileList.get("water");
+		}
+		var t = val % 2 == 0 ? "1" : "2";
+		return TileList.get("grass" + t);
 	}
 	
 	private static function rh_tree(val:Int):RLTile
@@ -108,5 +146,21 @@ class WorldGen
 			var t = val % 2 == 0 ? "1" : "2";
 			return TileList.get("grass" + t);
 		}
+	}
+	*/
+	
+	public static function resolveChunk(w:Int, h:Int, heightmap:Array<Int>):Array<RLTile>
+	{
+		var out:Array<RLTile> = [];
+		for (y in 0...h)
+		{
+			for (x in 0...w)
+			{
+				var val:Float = heightmap[x + y * w];
+				out.push(resolveHeightmap(Std.int(val)));
+				//if (x == 0 || y == 0) { out[x + y * w].bg = Color.BLUE; }
+			}
+		}
+		return out;
 	}
 }

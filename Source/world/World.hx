@@ -23,19 +23,19 @@ class World implements IRenderable implements ITileable
 	public var C_WIDTH:Int = 8;
 	public var C_HEIGHT:Int = 8;
 	public var buffer:Array<RLTile> = []; //the whole map!
-	public var worldMap:WorldMap;
-	public var seed:Int = Std.int(1000000);
+	public var chunkTypes:Array<String> = [];
+	public var seed:Int = Std.random(1000000);
 	
-	public function new(w:Int, h:Int, worldMap:WorldMap) 
+	public function new(w:Int, h:Int) 
 	{
 		WIDTH = w;
 		HEIGHT = h;
-		this.worldMap = worldMap;
 		
 		buffer = [for (x in 0...WIDTH) for (y in 0...HEIGHT) TileList.get("floor") ];
-		for (x in 0...10)
+		chunkTypes = [for (x in 0...Std.int(WIDTH/C_WIDTH)) for (y in 0...Std.int(HEIGHT/C_HEIGHT)) "floor" ];
+		for (x in 0...40)
 		{
-			for (y in 0...3)
+			for (y in 0...40)
 			{
 				loadChunk(x * C_WIDTH, y * C_HEIGHT, x, y);
 			}
@@ -44,20 +44,32 @@ class World implements IRenderable implements ITileable
 	
 	public function loadChunk(xt:Int, yt:Int, xc:Int, yc:Int)
 	{
-		var wt:RLTile = worldMap.read(xc, yc);
-		trace(xc, yc, wt.tiletype);
-		var arr:Array<Int> = [for (i in 0...(C_WIDTH * C_HEIGHT)) Std.random(30) + 110];//WorldGen.generate(C_WIDTH, C_HEIGHT, xc * C_WIDTH, yc * C_HEIGHT, seed);
-		trace(arr);
+		var arr:Array<Int> = WorldGen.generate(C_WIDTH, C_HEIGHT, xc * C_WIDTH, yc * C_HEIGHT, seed, 7, 0.5);
 		
-		var chunk:Array<RLTile> = WorldGen.resolveChunk(C_WIDTH, C_HEIGHT, wt.tiletype, arr);
+		var typeCounter:Float = 0;
+		var chunk:Array<RLTile> = WorldGen.resolveChunk(C_WIDTH, C_HEIGHT, arr);
 		for (x in 0...C_WIDTH)
 		{
 			for (y in 0...C_HEIGHT)
 			{
 				var tile:RLTile = chunk[x + y * C_WIDTH];
 				write(xt + x, yt + y, tile);
+				
+				typeCounter += arr[x + y * C_WIDTH];
 			}
 		}
+		var t = WorldGen.resolveType(typeCounter / (C_WIDTH * C_HEIGHT));
+		writeChunkType(xc, yc, t);
+	}
+	
+	public function readChunkType(xc:Int, yc:Int):String
+	{
+		return chunkTypes[xc + yc * Std.int(WIDTH / C_WIDTH)];
+	}
+	
+	public function writeChunkType(xc:Int, yc:Int, type:String):Void
+	{
+		chunkTypes[xc + yc * Std.int(WIDTH / C_WIDTH)] = type;
 	}
 	
 	public function read(xt:Int, yt:Int):RLTile
@@ -111,9 +123,21 @@ class World implements IRenderable implements ITileable
 					{
 						case Tile(value):
 							p.write(xt, yt, cur.fg, cur.bg, value);
+						
 						case Border(values):
 							var val = TileUtil.borderAutoTile(x, y, this, cur, values);
 							p.write(xt, yt, cur.fg, cur.bg, val);
+						
+						case Water(values, shorefg, shorebg):
+							var val = TileUtil.waterAutoTile(x, y, this, cur, values);
+							if (val == values.oooo)
+							{
+								p.write(xt, yt, cur.fg, cur.bg, val);
+							}
+							else
+							{
+								p.write(xt, yt, shorefg, shorebg, val);
+							}
 					}
 					if (cur.entity != null)
 					{

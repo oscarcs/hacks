@@ -2,7 +2,8 @@ package ui;
 
 import render.Panel;
 import render.Camera;
-import world.WorldMap;
+import tile.TileList;
+import world.World;
 
 /**
  * ...
@@ -12,12 +13,12 @@ class UIMap extends UI
 {
 	public var MAP_X:Int = 0;
 	public var MAP_Y:Int = 0;
-	public var worldMap:WorldMap;
+	public var world:World;
 	
-	public function new(xt:Int, yt:Int, w:Int, h:Int, worldMap:WorldMap) 
+	public function new(xt:Int, yt:Int, w:Int, h:Int, world:World) 
 	{
 		super(xt, yt, w, h);
-		this.worldMap = worldMap;
+		this.world = world;
 		
 		/*
 		for (x in 0...WIDTH)
@@ -56,14 +57,15 @@ class UIMap extends UI
 			{
 				var xt = x + MAP_X;
 				var yt = y + MAP_Y;
-			
+				
+				var type:String = world.readChunkType(xt, yt);
 				if (border)
 				{
-					write(x, y, worldMap.read(xt - 1, yt - 1));
+					write(xt, yt, TileList.get(type));
 				}
 				else
 				{
-					write(x, y, worldMap.read(xt, yt));
+					write(xt, yt, TileList.get(type));
 				}
 				
 			}

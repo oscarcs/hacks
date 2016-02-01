@@ -148,4 +148,15 @@ class World implements IRenderable implements ITileable
 			}
 		}
 	}
+	
+	public function forceRedraw()
+	{
+		for (x in 0...WIDTH)
+		{
+			for (y in 0...HEIGHT)
+			{
+				read(x, y)._ch = true;
+			}
+		}
+	}
 }

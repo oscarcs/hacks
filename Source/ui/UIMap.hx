@@ -19,32 +19,9 @@ class UIMap extends UI
 	{
 		super(xt, yt, w, h);
 		this.world = world;
-		
-		/*
-		for (x in 0...WIDTH)
-		{
-			for (y in 0...HEIGHT)
-			{
-				var xt:Int = x + MAP_X;
-				var yt:Int = y + MAP_Y;
-				//
-				
-				var quadrant:Int = 0;
-				for (qx in 0...8)
-				{
-					for (qy in 0...8)
-					{
-						quadrant += world.heightmap[(qx + xt * 8) + (qy + yt * 8) * world.WIDTH];
-					}
-				}
-				quadrant = Math.round(quadrant / 64);
-				write(x, y, WorldGen.resolveHeighmap(quadrant));
-			}
-		}
-		*/
 	}
 	
-	override public function draw(p:Panel, c:Camera):Void 
+	public function readChunks()
 	{
 		var x1:Int = border ? 1 : 0;
 		var x2:Int = border ? WIDTH - 1 : WIDTH;
@@ -70,6 +47,11 @@ class UIMap extends UI
 				
 			}
 		}
+	}
+	
+	override public function draw(p:Panel, c:Camera):Void 
+	{
+
 		super.draw(p, c);
 	}
 	

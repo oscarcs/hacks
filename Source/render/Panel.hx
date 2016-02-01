@@ -17,6 +17,7 @@ typedef ScreenTile = {
 	var bg:ARGB;
 	var value:Int;
 	var _ch:Bool;
+	@:optional var _lock:IRenderable;
 }
 
 /**
@@ -61,18 +62,21 @@ class Panel
 		return screenBuffer[xt + yt * WIDTH];
 	}
 	
-	public function write(xt:Int, yt:Int, fg:ARGB, bg:ARGB, value:Int)
+	public function write(xt:Int, yt:Int, fg:ARGB, bg:ARGB, value:Int, ?accessor:IRenderable)
 	{
 		if (xt >= 0 && yt >= 0 && xt < WIDTH && yt < HEIGHT)
 		{
 			var cur = read(xt, yt);
-			if (cur.value != value || cur.fg != fg || cur.bg != bg)
+			if (cur._lock == null || cur._lock == accessor)
 			{
-				cur._ch = true;
+				if (cur.value != value || cur.fg != fg || cur.bg != bg)
+				{
+					cur._ch = true;
+				}
+				cur.fg = fg;
+				cur.bg = bg;
+				cur.value = value;
 			}
-			cur.fg = fg;
-			cur.bg = bg;
-			cur.value = value;
 		}
 	}
 	
@@ -115,7 +119,29 @@ class Panel
 				}
 			}
 		}
-		
+	}
+	
+	public function forceRedraw()
+	{
+		for (x in 0...WIDTH)
+		{
+			for (y in 0...HEIGHT)
+			{
+				read(x, y)._ch = true;
+				read(x, y)._lock = null;
+			}
+		}
+	}
+	
+	public function setLock(xt:Int, yt:Int, w:Int, h:Int, lock:IRenderable)
+	{
+		for (x in xt...(xt + w))
+		{
+			for (y in yt...(yt + h))
+			{
+				read(x, y)._lock = lock;
+			}
+		}
 	}
 	
 }

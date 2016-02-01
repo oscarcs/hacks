@@ -59,29 +59,40 @@ class Main extends Sprite
 		panel = new Panel("assets/tiles9x16.png");
 		panel.draw();
 		
+		camera = new Camera();
+		camera.x = camera.y = 0;
+		
 		world = new World(400, 400);
-		
-		ui = new UI(0, panel.HEIGHT - 6, panel.WIDTH, 6);
-		ui.init(true, Color.WHITE, Color.BLACK, "| INFO |");
-		
-		var uimap = new UIMap(panel.WIDTH - 14, panel.HEIGHT - 8, 14, 8, world);
-		uimap.init(true, Color.WHITE, Color.BLACK, "| MAP |");
 		
 		player = new Player(2, 2, world);
 		
-		camera = new Camera();
-		camera.x = camera.y = 0;
+		ui = new UI(0, panel.HEIGHT - 6, panel.WIDTH, 6);
+		ui.init(true, Color.WHITE, Color.BLACK, "| INFO |");
+		panel.setLock(ui.X, ui.Y, ui.WIDTH, ui.HEIGHT, ui);
+		
+		var uimap = new UIMap(0, 0, Std.int(panel.WIDTH/2), panel.HEIGHT, world);
+		uimap.X = panel.WIDTH - uimap.WIDTH;
+		uimap.Y = panel.HEIGHT - uimap.HEIGHT;
+		uimap.init(true, Color.WHITE, Color.BLACK, "| MAP |");
+		panel.setLock(uimap.X, uimap.Y, uimap.WIDTH, uimap.HEIGHT, uimap);
+		uimap.readChunks();
+		
 		camera.add(world);
 		camera.add(ui);
 		camera.add(uimap);
 		
 		addChild(fps); //add last, duh
 		fps.visible = false;
+
+		//hack to force autotiler to run
+		camera.x ++;
+		camera.draw(panel);
+		camera.x --;
 	}
 	
 	public function onEnterFrame(e:Event)
 	{
-		TileUtil.drawText(1, 1, ui, "FPS: " + fps.times.length + "\nMem: " + fps.mem + " MB\nMem peak: " + fps.memPeak + " MB", Color.WHITE, Color.BLACK, ui.WIDTH - 2); 
+		TileUtil.drawText(1, 1, ui, "FPS: " + fps.times.length + "   \nMem: " + fps.mem + " MB  \nMem peak: " + fps.memPeak + " MB   ", Color.WHITE, Color.BLACK, ui.WIDTH - 2); 
 		/*
 		switch(Std.random(4))
 		{
@@ -128,6 +139,7 @@ class Main extends Sprite
 			}
 		}
 		
+		// main drawing call!
 		camera.draw(panel);
 		
 		for (i in 0...keys.length)

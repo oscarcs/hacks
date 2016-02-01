@@ -102,29 +102,29 @@ class UI implements IRenderable implements ITileable
 			for (y in 0...HEIGHT)
 			{
 				var cur = read(x, y);
-				//if (cur._ch)
+				if (cur._ch)
 				{
 					switch(cur.rt)
 					{
 						case Tile(value):
 							if (value != 0) //transparency!
 							{
-								p.write(x + X, y + Y, cur.fg, cur.bg, value);
+								p.write(x + X, y + Y, cur.fg, cur.bg, value, this);
 							}
 						
 						case Border(values):
 							var val = TileUtil.borderAutoTile(x, y, this, cur, values);
-							p.write(x + X, y + Y, cur.fg, cur.bg, val);
+							p.write(x + X, y + Y, cur.fg, cur.bg, val, this);
 						
 						case Water(values, shorefg, shorebg):	
 							var val = values.oooo;//TileUtil.waterAutoTile(x, y, this, cur, values);
 							if (val == values.oooo)
 							{
-								p.write(x + X, y + Y, cur.fg, cur.bg, val);
+								p.write(x + X, y + Y, cur.fg, cur.bg, val, this);
 							}
 							else
 							{
-								p.write(x + X, y + Y, shorefg, shorebg, val);
+								p.write(x + X, y + Y, shorefg, shorebg, val, this);
 							}
 					}
 					cur._ch = false;

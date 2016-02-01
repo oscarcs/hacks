@@ -75,7 +75,7 @@ class Main extends Sprite
 		uimap.Y = panel.HEIGHT - uimap.HEIGHT;
 		uimap.init(true, Color.WHITE, Color.BLACK, "| MAP |");
 		panel.setLock(uimap.X, uimap.Y, uimap.WIDTH, uimap.HEIGHT, uimap);
-		uimap.readChunks();
+		uimap.writeChunks();
 		
 		camera.add(world);
 		camera.add(ui);

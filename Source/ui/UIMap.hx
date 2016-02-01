@@ -21,30 +21,21 @@ class UIMap extends UI
 		this.world = world;
 	}
 	
-	public function readChunks()
+	public function writeChunks()
 	{
-		var x1:Int = border ? 1 : 0;
-		var x2:Int = border ? WIDTH - 1 : WIDTH;
-		var y1:Int = border ? 1 : 0;
-		var y2:Int = border ? HEIGHT - 1 : HEIGHT;
+		var x2:Int = border ? WIDTH - 2 : WIDTH;
+		var y2:Int = border ? HEIGHT - 2 : HEIGHT;
 		
-		for (x in x1...x2)
+		for (x in 0...x2)
 		{
-			for (y in y1...y2)
+			for (y in 0...y2)
 			{
 				var xt = x + MAP_X;
 				var yt = y + MAP_Y;
-				
 				var type:String = world.readChunkType(xt, yt);
-				if (border)
-				{
-					write(xt, yt, TileList.get(type));
-				}
-				else
-				{
-					write(xt, yt, TileList.get(type));
-				}
 				
+				if (border) { xt++; yt++; }
+				write(xt, yt, TileList.get(type));
 			}
 		}
 	}

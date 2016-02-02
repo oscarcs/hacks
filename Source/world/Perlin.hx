@@ -2,7 +2,7 @@ package world;
 
 /**
 Title:      Perlin noise
-Version:    1.3
+Version:    1.3.1
 Author:      Ron Valstar
 Author URI:    http://www.sjeiti.com/
 Original code port from http://mrl.nyu.edu/~perlin/noise/

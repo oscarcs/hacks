@@ -1,5 +1,6 @@
 package world;
 
+import random.Random;
 import render.Color;
 import render.Color.ARGB;
 import render.IRenderable;
@@ -24,7 +25,6 @@ class World implements IRenderable implements ITileable
 	public var C_HEIGHT:Int = 8;
 	public var buffer:Array<RLTile> = []; //the whole map!
 	public var chunkTypes:Array<String> = [];
-	public var seed:Int = Std.random(1000000);
 	
 	public function new(w:Int, h:Int) 
 	{
@@ -32,41 +32,62 @@ class World implements IRenderable implements ITileable
 		HEIGHT = h;
 		
 		buffer = [for (x in 0...WIDTH) for (y in 0...HEIGHT) TileList.get("floor") ];
+		
+		//setup chunk types for use in overworld maps.
 		chunkTypes = [for (x in 0...Std.int(WIDTH/C_WIDTH)) for (y in 0...Std.int(HEIGHT/C_HEIGHT)) "floor" ];
+		
+		var arr:Array<Int> = WorldGen.generate(WIDTH, HEIGHT, 0, 0, Random.seed, 7, 0.5);
+		buffer = WorldGen.resolveWorld(WIDTH, HEIGHT, arr);
+		
 		for (x in 0...40)
 		{
 			for (y in 0...40)
 			{
-				loadChunk(x * C_WIDTH, y * C_HEIGHT, x, y);
+				writeChunkType(x, y, getChunkType(x, y));
 			}
 		}
+		
+		WorldGen.spawnRivers(arr, 20, this);
 	}
 	
-	public function loadChunk(xt:Int, yt:Int, xc:Int, yc:Int)
+	/**
+	 * Get the type of a chunk
+	 * This algorithm is naive and could be significantly improved!
+	 * @param	xc
+	 * @param	yc
+	 */
+	public function getChunkType(xc:Int, yc:Int):String
 	{
-		var arr:Array<Int> = WorldGen.generate(C_WIDTH, C_HEIGHT, xc * C_WIDTH, yc * C_HEIGHT, seed, 7, 0.5);
-		
+		var arr:Array<Int> = WorldGen.generate(C_WIDTH, C_HEIGHT, xc * C_WIDTH, yc * C_HEIGHT, Random.seed, 7, 0.5);
 		var typeCounter:Float = 0;
-		var chunk:Array<RLTile> = WorldGen.resolveChunk(C_WIDTH, C_HEIGHT, arr);
 		for (x in 0...C_WIDTH)
 		{
 			for (y in 0...C_HEIGHT)
 			{
-				var tile:RLTile = chunk[x + y * C_WIDTH];
-				write(xt + x, yt + y, tile);
-				
 				typeCounter += arr[x + y * C_WIDTH];
 			}
 		}
-		var t = WorldGen.resolveType(typeCounter / (C_WIDTH * C_HEIGHT));
-		writeChunkType(xc, yc, t);
+		var t = WorldGen.resolveHeightmap(typeCounter / (C_WIDTH * C_HEIGHT)).tiletype;
+		return t;
 	}
 	
+	/**
+	 * Read the type of a chunk
+	 * @param	xc
+	 * @param	yc
+	 * @return
+	 */
 	public function readChunkType(xc:Int, yc:Int):String
 	{
 		return chunkTypes[xc + yc * Std.int(WIDTH / C_WIDTH)];
 	}
 	
+	/**
+	 * Write the type of a chunk
+	 * @param	xc
+	 * @param	yc
+	 * @param	type
+	 */
 	public function writeChunkType(xc:Int, yc:Int, type:String):Void
 	{
 		chunkTypes[xc + yc * Std.int(WIDTH / C_WIDTH)] = type;
@@ -99,7 +120,6 @@ class World implements IRenderable implements ITileable
 			cur.rt = tile.rt;
 			cur.solid = tile.solid;
 			cur.tiletype = tile.tiletype;
-			cur._ch = true;
 		}
 	}
 	

@@ -41,6 +41,8 @@ typedef BorderValues = {
 	var xoox:Int;	// ┌
 }
 
+
+
 /**
  * Static list of tiles. Will eventually be loaded from file.
  * @author oscarcs
@@ -102,6 +104,23 @@ class TileList
 		_ch: true
 	};
 	
+	public static var river:RLTile = {
+		tiletype:"river",
+		solid:false,
+		rt:Border({oxox: 0xB3, oxoo: 0xB3, xxoo: 0xBF, ooxx: 0xC0, 
+			ooxo: 0xC4, xooo: 0xC4, ooox: 0xB3, xoxo: 0xC4, 
+			oooo: 0xB3, oxxo: 0xD9, xoox: 0xDA } ),
+		fg: { a:255, r:0, g:105, b:140 },
+		bg: Color.BLACK,
+		_ch: true
+	};
+/*	
+oxoo -> oxox
+ooxo -> xoxo
+xooo -> xoxo
+oooo -> oxox
+ooox -> oxox
+*/	
 	public static var grass1:RLTile = {
 		tiletype:"grass",
 		solid:false,
@@ -128,7 +147,6 @@ class TileList
 		bg: Color.BLACK,
 		_ch:true
 	};
-	
 	
 	public static var mountain:RLTile = {
 		tiletype:"mountain",
@@ -162,6 +180,7 @@ class TileList
 	//TODO load from JSON instead of using statically coded tiles.
 	public static function get(name:String):RLTile
 	{
+		if (name == 'grass') name += '1';	
 		var t:RLTile = Reflect.field(TileList, name);
 		var wt:RLTile = { tiletype:t.tiletype, solid:t.solid, rt:t.rt, fg:t.fg, bg:t.bg, _ch:t._ch };
 		return wt;

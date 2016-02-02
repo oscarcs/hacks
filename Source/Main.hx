@@ -8,6 +8,7 @@ import openfl.Assets;
 import openfl.events.Event;
 import openfl.events.KeyboardEvent;
 import openfl.ui.Keyboard;
+import random.Random;
 
 import render.Panel;
 import render.Camera;
@@ -44,6 +45,10 @@ class Main extends Sprite
 	public function new()
 	{	
 		super();
+		
+		//TODO: use a better source of random to set seed.
+		Random.setSeed(Std.random(0x7FFFFFFF - 1));
+		
 		//framework garbage
 		{
 			surface = new BitmapData(Std.int(640), Std.int(480), false, 0xFFAAAAAA);
@@ -70,9 +75,9 @@ class Main extends Sprite
 		ui.init(true, Color.WHITE, Color.BLACK, "| INFO |");
 		panel.setLock(ui.X, ui.Y, ui.WIDTH, ui.HEIGHT, ui);
 		
-		var uimap = new UIMap(0, 0, Std.int(panel.WIDTH/2), panel.HEIGHT, world);
+		var uimap = new UIMap(0, 0, Std.int(panel.WIDTH/2), panel.HEIGHT - ui.HEIGHT, world);
 		uimap.X = panel.WIDTH - uimap.WIDTH;
-		uimap.Y = panel.HEIGHT - uimap.HEIGHT;
+		//uimap.Y = panel.HEIGHT - uimap.HEIGHT;
 		uimap.init(true, Color.WHITE, Color.BLACK, "| MAP |");
 		panel.setLock(uimap.X, uimap.Y, uimap.WIDTH, uimap.HEIGHT, uimap);
 		uimap.writeChunks();
@@ -92,7 +97,7 @@ class Main extends Sprite
 	
 	public function onEnterFrame(e:Event)
 	{
-		TileUtil.drawText(1, 1, ui, "FPS: " + fps.times.length + "   \nMem: " + fps.mem + " MB  \nMem peak: " + fps.memPeak + " MB   ", Color.WHITE, Color.BLACK, ui.WIDTH - 2); 
+		TileUtil.drawText(1, 1, ui, "FPS: " + fps.times.length + "   \nMem: " + fps.mem + " MB  \nMem peak: " + fps.memPeak + " MB   \nSeed: " + Random.seed, Color.WHITE, Color.BLACK, ui.WIDTH - 2); 
 		/*
 		switch(Std.random(4))
 		{

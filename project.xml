@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project>
 	
-	<meta title="AAD" package="com.oscarcs.aad" version="0.1.0" company="Company Name" />
+	<meta title="HxRL" package="com.oscarcs.hxrl" version="0.1.0" company="HxRL" />
 	<app main="Main" path="Export" file="AAD" />
 	<window width="640" height="480" fps="30" />
 	<source path="Source" />
@@ -10,4 +10,4 @@
 	
 	<assets path="Assets" rename="assets" />
 	
-</project>
+</project>	

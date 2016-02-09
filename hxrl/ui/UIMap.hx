@@ -23,8 +23,8 @@ class UIMap extends UI
 	
 	public function loadChunks()
 	{
-		var x2:Int = border ? w - 2 : w;
-		var y2:Int = border ? h - 2 : h;
+		var x2:Int = uiData.hasBorder ? w - 2 : w;
+		var y2:Int = uiData.hasBorder ? h - 2 : h;
 		
 		for (x in 0...x2)
 		{
@@ -34,7 +34,7 @@ class UIMap extends UI
 				var yt = y + map_y;
 				var type:String = world.readChunkType(xt, yt);
 				
-				if (border) { xt++; yt++; }
+				if (uiData.hasBorder) { xt++; yt++; }
 				write(xt, yt, TileList.get(type));
 			}
 		}

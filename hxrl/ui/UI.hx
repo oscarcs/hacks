@@ -10,6 +10,15 @@ import hxrl.tile.TileList;
 import hxrl.tile.TileList.RLTile;
 import hxrl.tile.TileUtil;
 
+typedef UIData = {
+	var hasBorder:Bool;
+	var title:String;
+	var fg:ARGB;
+	var bg:ARGB;
+	@optional var edgeName:String;
+	@optional var backName:String;
+}
+
 /**
  * ...
  * @author oscarcs
@@ -21,7 +30,7 @@ class UI implements IRenderable implements ITileable
 	public var w:Int;
 	public var h:Int;
 	public var buffer:Array<RLTile> = [];
-	private var border:Bool = false;
+	private var uiData:UIData;
 	
 	public function new(xt:Int, yt:Int, w:Int, h:Int)
 	{
@@ -33,23 +42,27 @@ class UI implements IRenderable implements ITileable
 		buffer = [for (i in 0...w) for (j in 0...h) TileList.get("none") ];
 	}
 	
-	public function init(border:Bool, fg:ARGB, bg:ARGB, title:String)
+	public function init(ui:UIData)
 	{
-		this.border = border;
-		
-		var borderTile:RLTile = TileList.get("border");
-		borderTile.fg = fg;
-		borderTile.bg = bg;
+		uiData = ui;
 			
-		var backTile:RLTile = TileList.get("ui_back");
-		backTile.fg = fg;
-		backTile.bg = bg;
+		var backTile:RLTile = TileList.get(uiData.backName);
+		backTile.fg = uiData.fg;
+		backTile.bg = uiData.bg;
+		
+		var borderTile:RLTile = TileList.get('none');
+		if (uiData.hasBorder)
+		{
+			borderTile = TileList.get(uiData.edgeName);
+			borderTile.fg = uiData.fg;
+			borderTile.bg = uiData.bg;
+		}
 		
 		for (i in 0...w)
 		{
 			for (j in 0...h)
 			{
-				if (border && (i == 0 || i == w - 1 || j == 0 || j == h - 1))
+				if (uiData.hasBorder && (i == 0 || i == w - 1 || j == 0 || j == h - 1))
 				{
 					write(i, j, borderTile);
 				}
@@ -59,9 +72,9 @@ class UI implements IRenderable implements ITileable
 				}
 			}
 		}
-		if (title != "")
+		if (uiData.title != "")
 		{
-			TileUtil.drawText(Std.int((w - title.length) / 2), 0, this, title, fg, bg);
+			TileUtil.drawText(Std.int((w - uiData.title.length) / 2), 0, this, uiData.title, uiData.fg, uiData.bg);
 		}
 	}
 	

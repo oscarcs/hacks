@@ -1,5 +1,5 @@
-package render;
-import render.Color.ARGB;
+package hxrl.render;
+import haxerl.*;
 
 typedef HSV = {
 	var h:Float;
@@ -20,11 +20,11 @@ typedef ARGB = {
  */
 class Color
 {
-	public static var WHITE:ARGB = 	{ a:255, r:255, g:255, b:255 };
-	public static var BLACK:ARGB = 	{ a:255, r:0, g:0, b:0 };
-	public static var RED:ARGB = 	{ a:255, r:255, g:0, b:0 };
-	public static var GREEN:ARGB = 	{ a:255, r:0, g:255, b:0 };
-	public static var BLUE:ARGB = 	{ a:255, r:0, g:0, b:255 };
+	public static var WHITE:ARGB = 	{	a:255,	r:255, 	g:255, 	b:255 	};
+	public static var BLACK:ARGB = 	{	a:255,	r:0, 	g:0, 	b:0 	};
+	public static var RED:ARGB = 	{	a:255,	r:255, 	g:0, 	b:0 	};
+	public static var GREEN:ARGB = 	{	a:255,	r:0, 	g:255, 	b:0 	};
+	public static var BLUE:ARGB = 	{	a:255,	r:0, 	g:0, 	b:255 	};
 	
 	public static function ARGBtoHex(rgb:ARGB):Int
 	{

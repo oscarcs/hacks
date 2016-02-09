@@ -1,4 +1,4 @@
-package render;
+package hxrl.render;
 
 /**
  * @author oscarcs

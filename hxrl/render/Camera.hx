@@ -1,8 +1,8 @@
-package render;
-import render.Panel;
+package hxrl.render;
+import hxrl.render.Panel;
 
 /**
- * Framework-independent grouping and render list class.
+ * Grouping and render list class.
  * @author oscarcs
  */
 class Camera

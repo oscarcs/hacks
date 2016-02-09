@@ -1,13 +1,15 @@
-package random;
+package hxrl.random;
 
 /**
  * Haxe xorshift PRNG implementation.
- * http://excamera.com/sphinx/article-xorshift.html
+ * Ensure the seed is set before use.
+ * @see http://excamera.com/sphinx/article-xorshift.html
  * @author oscarcs
  */
 class Random
 {
-	public static var seed:Int = 7; //100% random seed
+	public static var seed:Int = 4; //chosen by fair dice roll. 
+									//guaranteed to be random.
 	
 	public static function setSeed(x:Int)
 	{

@@ -1,9 +1,10 @@
-package tile;
+package hxrl.tile;
+import hxrl.render.Color;
 
-import render.Color.ARGB;
-import tile.TileList.RLTile;
-import tile.TileList.BorderValues;
-import world.World;
+import hxrl.render.Color.ARGB;
+import hxrl.tile.TileList.RLTile;
+import hxrl.tile.TileList.BorderValues;
+import hxrl.world.World;
 
 /**
  * ...
@@ -18,7 +19,7 @@ class TileUtil
 	
 	public static function drawText(xt:Int, yt:Int, context:ITileable, text:String, fg:ARGB, bg:ARGB, ?wrapWidth:Int):Void
 	{
-		if (wrapWidth == null) wrapWidth = context.WIDTH - 1;
+		if (wrapWidth == null) wrapWidth = context.w - 1;
 		var x:Int = xt;
 		for (i in 0...text.length)
 		{

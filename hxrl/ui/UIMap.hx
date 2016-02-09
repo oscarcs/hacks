@@ -1,18 +1,18 @@
-package ui;
+package hxrl.ui;
 
-import render.Panel;
-import render.Camera;
-import tile.TileList;
-import world.World;
+import hxrl.render.Panel;
+import hxrl.render.Camera;
+import hxrl.tile.TileList;
+import hxrl.world.World;
 
 /**
- * ...
+ * Class for a world map. Reads from the World 'ChunkType' array.
  * @author oscarcs
  */
 class UIMap extends UI
 {
-	public var MAP_X:Int = 0;
-	public var MAP_Y:Int = 0;
+	public var map_x:Int = 0;
+	public var map_y:Int = 0;
 	public var world:World;
 	
 	public function new(xt:Int, yt:Int, w:Int, h:Int, world:World) 
@@ -21,17 +21,17 @@ class UIMap extends UI
 		this.world = world;
 	}
 	
-	public function writeChunks()
+	public function loadChunks()
 	{
-		var x2:Int = border ? WIDTH - 2 : WIDTH;
-		var y2:Int = border ? HEIGHT - 2 : HEIGHT;
+		var x2:Int = border ? w - 2 : w;
+		var y2:Int = border ? h - 2 : h;
 		
 		for (x in 0...x2)
 		{
 			for (y in 0...y2)
 			{
-				var xt = x + MAP_X;
-				var yt = y + MAP_Y;
+				var xt = x + map_x;
+				var yt = y + map_y;
 				var type:String = world.readChunkType(xt, yt);
 				
 				if (border) { xt++; yt++; }
@@ -42,7 +42,6 @@ class UIMap extends UI
 	
 	override public function draw(p:Panel, c:Camera):Void 
 	{
-
 		super.draw(p, c);
 	}
 	

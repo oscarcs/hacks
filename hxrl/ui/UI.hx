@@ -1,13 +1,14 @@
-package ui;
+package hxrl.ui;
 
-import render.Color;
-import render.IRenderable;
-import render.Panel;
-import render.Camera;
-import tile.ITileable;
-import tile.TileList;
-import tile.TileList.RLTile;
-import tile.TileUtil;
+import hxrl.render.Color;
+import hxrl.render.Color.ARGB;
+import hxrl.render.Camera;
+import hxrl.render.IRenderable;
+import hxrl.render.Panel;
+import hxrl.tile.ITileable;
+import hxrl.tile.TileList;
+import hxrl.tile.TileList.RLTile;
+import hxrl.tile.TileUtil;
 
 /**
  * ...
@@ -15,21 +16,21 @@ import tile.TileUtil;
  */
 class UI implements IRenderable implements ITileable
 {
-	public var X:Int;
-	public var Y:Int;
-	public var WIDTH:Int;
-	public var HEIGHT:Int;
+	public var x:Int;
+	public var y:Int;
+	public var w:Int;
+	public var h:Int;
 	public var buffer:Array<RLTile> = [];
 	private var border:Bool = false;
 	
 	public function new(xt:Int, yt:Int, w:Int, h:Int)
 	{
-		X = xt;
-		Y = yt;
-		WIDTH = w;
-		HEIGHT = h;
+		x = xt;
+		y = yt;
+		this.w = w;
+		this.h = h;
 		
-		buffer = [for (x in 0...WIDTH) for (y in 0...HEIGHT) TileList.get("ui_transparent") ];
+		buffer = [for (i in 0...w) for (j in 0...h) TileList.get("none") ];
 	}
 	
 	public function init(border:Bool, fg:ARGB, bg:ARGB, title:String)
@@ -44,40 +45,40 @@ class UI implements IRenderable implements ITileable
 		backTile.fg = fg;
 		backTile.bg = bg;
 		
-		for (x in 0...WIDTH)
+		for (i in 0...w)
 		{
-			for (y in 0...HEIGHT)
+			for (j in 0...h)
 			{
-				if (border && (x == 0 || x == WIDTH - 1 || y == 0 || y == HEIGHT - 1))
+				if (border && (i == 0 || i == w - 1 || j == 0 || j == h - 1))
 				{
-					write(x, y, borderTile);
+					write(i, j, borderTile);
 				}
 				else
 				{
-					write(x, y, backTile);
+					write(i, j, backTile);
 				}
 			}
 		}
 		if (title != "")
 		{
-			TileUtil.drawText(Std.int((WIDTH - title.length) / 2), 0, this, title, fg, bg);
+			TileUtil.drawText(Std.int((w - title.length) / 2), 0, this, title, fg, bg);
 		}
 	}
 	
 	public function read(xt:Int, yt:Int):RLTile
 	{
-		if (xt >= 0 && yt >= 0 && xt < WIDTH && yt < HEIGHT)
+		if (xt >= 0 && yt >= 0 && xt < w && yt < h)
 		{
-			return buffer[xt + yt * WIDTH];
+			return buffer[xt + yt * w];
 		}
 		return null;
 	}
 	
 	public function write(xt:Int, yt:Int, tile:RLTile):Void
 	{
-		if (xt >= 0 && yt >= 0 && xt < WIDTH && yt < HEIGHT)
+		if (xt >= 0 && yt >= 0 && xt < w && yt < h)
 		{
-			var cur = buffer[xt + yt * WIDTH];
+			var cur = buffer[xt + yt * w];
 			if (cur.rt != tile.rt || 
 				cur.fg != tile.fg || 
 				cur.bg != tile.bg || 
@@ -97,11 +98,11 @@ class UI implements IRenderable implements ITileable
 	
 	public function draw(p:Panel, c:Camera):Void
 	{
-		for (x in 0...WIDTH)
+		for (i in 0...w)
 		{
-			for (y in 0...HEIGHT)
+			for (j in 0...h)
 			{
-				var cur = read(x, y);
+				var cur = read(i, j);
 				if (cur._ch)
 				{
 					switch(cur.rt)
@@ -109,22 +110,22 @@ class UI implements IRenderable implements ITileable
 						case Tile(value):
 							if (value != 0) //transparency!
 							{
-								p.write(x + X, y + Y, cur.fg, cur.bg, value, this);
+								p.write(i + x, j + y, cur.fg, cur.bg, value, this);
 							}
 						
 						case Border(values):
-							var val = TileUtil.borderAutoTile(x, y, this, cur, values);
-							p.write(x + X, y + Y, cur.fg, cur.bg, val, this);
+							var val = TileUtil.borderAutoTile(i, j, this, cur, values);
+							p.write(i + x, j + y, cur.fg, cur.bg, val, this);
 						
 						case Water(values, shorefg, shorebg):	
-							var val = values.oooo;//TileUtil.waterAutoTile(x, y, this, cur, values);
+							var val = values.oooo;//TileUtil.waterAutoTile(i, j, this, cur, values);
 							if (val == values.oooo)
 							{
-								p.write(x + X, y + Y, cur.fg, cur.bg, val, this);
+								p.write(i + x, j + y, cur.fg, cur.bg, val, this);
 							}
 							else
 							{
-								p.write(x + X, y + Y, shorefg, shorebg, val, this);
+								p.write(i + x, j + y, shorefg, shorebg, val, this);
 							}
 					}
 					cur._ch = false;

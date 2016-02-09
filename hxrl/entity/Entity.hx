@@ -1,10 +1,10 @@
-package entity;
+package hxrl.entity;
 
-import render.IRenderable;
-import render.Panel;
-import render.Camera;
-import render.Color;
-import world.World;
+import hxrl.render.IRenderable;
+import hxrl.render.Panel;
+import hxrl.render.Camera;
+import hxrl.render.Color;
+import hxrl.world.World;
 
 /**
  * ...

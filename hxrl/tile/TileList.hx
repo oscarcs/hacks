@@ -1,43 +1,24 @@
 package hxrl.tile;
 
 import haxe.Json;
+import hxrl.render.TileRenderComponent;
 import hxrl.tile.TileList.RLTile;
-import hxrl.tile.TileList.RenderType;
 import hxrl.render.Color;
 import hxrl.render.Color.ARGB;
+import hxrl.render.IRenderComponent;
 import hxrl.entity.Entity;
 
 typedef RLTile = {
 	var solid:Bool;
-	var rt:RenderType;
+	var rc:Array<IRenderComponent>;
 	var fg:ARGB;
 	var bg:ARGB;
 	var _ch:Bool;
 	
+	//TODO: ECS this too?
 	//for world
 	@:optional var tiletype:String;
 	@:optional var entity:Entity;
-}
-
-enum RenderType
-{
-	Tile(value:Int);
-	Border(value:BorderValues);
-	Water(value:BorderValues, shorefg:ARGB, shorebg:ARGB);
-}
-
-typedef BorderValues = {
-	var oxox:Int;	// │	
-	var oxoo:Int;	// ┤
-	var xxoo:Int;	// ┐
-	var ooxx:Int;	// └
-	var ooxo:Int;	// ┴
-	var xooo:Int;	// ┬
-	var ooox:Int;	// ├
-	var xoxo:Int;	// ─
-	var oooo:Int;	// ┼
-	var oxxo:Int;	// ┘
-	var xoox:Int;	// ┌
 }
 
 /**
@@ -50,7 +31,7 @@ class TileList
 	public static var none:RLTile = {
 		tiletype:"none",
 		solid:false,
-		rt:Tile(0),
+		rc:[new TileRenderComponent(0)],
 		fg:Color.WHITE,
 		bg:Color.BLACK,
 		_ch:true
@@ -70,7 +51,9 @@ class TileList
 		{  
 			t = TileList.tiles.get(name);
 		}
-		var wt:RLTile = { tiletype:t.tiletype, solid:t.solid, rt:t.rt, fg:t.fg, bg:t.bg, _ch:t._ch };
+		
+		//TODO: deep copy rc
+		var wt:RLTile = { tiletype:t.tiletype, solid:t.solid, rc:t.rc, fg:t.fg, bg:t.bg, _ch:t._ch };
 		return wt;
 	}
 }

@@ -83,7 +83,7 @@ class World implements IRenderable implements ITileable
 		if (xt >= 0 && yt >= 0 && xt < w && yt < h)
 		{
 			var cur = buffer[xt + yt * w];
-			if (cur.rt != tile.rt || 
+			if (cur.rc != tile.rc || 
 				cur.fg != tile.fg || 
 				cur.bg != tile.bg || 
 				cur.solid != tile.solid ||
@@ -93,7 +93,7 @@ class World implements IRenderable implements ITileable
 			}
 			cur.bg = tile.bg;
 			cur.fg = tile.fg;
-			cur.rt = tile.rt;
+			cur.rc = tile.rc;
 			cur.solid = tile.solid;
 			cur.tiletype = tile.tiletype;
 		}
@@ -101,45 +101,20 @@ class World implements IRenderable implements ITileable
 	
 	public function draw(p:Panel, c:Camera):Void
 	{
-		for (xt in 0...p.w)
+		for (i in 0...p.w)
 		{
-			for (yt in 0...p.h)
+			for (j in 0...p.h)
 			{
-				var i:Int = c.x + xt;
-				var j:Int = c.y + yt;
+				var xt:Int = c.x + i;
+				var yt:Int = c.y + j;
 				
-				var cur = read(i, j);
+				var cur = read(xt, yt);
 				if (cur != null && (cur._ch || c.moved))
 				{
-					if (i % 8 == 0 && j % 8 == 0) {
-						//cur.bg = Color.WHITE;
-					}
-					
-					switch(cur.rt)
+					for (k in 0...cur.rc.length)
 					{
-						case Tile(value):
-							p.write(xt, yt, cur.fg, cur.bg, value);
-						
-						case Border(values):
-							var val = TileUtil.borderAutoTile(i, j, this, cur, values);
-							p.write(xt, yt, cur.fg, cur.bg, val);
-						
-						case Water(values, shorefg, shorebg):
-							var val = TileUtil.waterAutoTile(i, j, this, cur, values);
-							if (val == values.oooo)
-							{
-								p.write(xt, yt, cur.fg, cur.bg, val);
-							}
-							else
-							{
-								p.write(xt, yt, shorefg, shorebg, val);
-							}
+						cur.rc[k].render(p, c, cur, this, xt, yt, i, j);
 					}
-					if (cur.entity != null)
-					{
-						cur.entity.draw(p, c);
-					}
-					cur._ch = false;
 				}
 			}
 		}

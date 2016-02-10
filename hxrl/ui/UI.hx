@@ -92,7 +92,7 @@ class UI implements IRenderable implements ITileable
 		if (xt >= 0 && yt >= 0 && xt < w && yt < h)
 		{
 			var cur = buffer[xt + yt * w];
-			if (cur.rt != tile.rt || 
+			if (cur.rc != tile.rc || 
 				cur.fg != tile.fg || 
 				cur.bg != tile.bg || 
 				cur.solid != tile.solid ||
@@ -102,10 +102,9 @@ class UI implements IRenderable implements ITileable
 			}
 			cur.bg = tile.bg;
 			cur.fg = tile.fg;
-			cur.rt = tile.rt;
+			cur.rc = tile.rc;
 			cur.solid = tile.solid;
 			cur.tiletype = tile.tiletype;
-			cur._ch = true;
 		}
 	}
 	
@@ -118,30 +117,10 @@ class UI implements IRenderable implements ITileable
 				var cur = read(i, j);
 				if (cur._ch)
 				{
-					switch(cur.rt)
+					for (k in 0...cur.rc.length)
 					{
-						case Tile(value):
-							if (value != 0) //transparency!
-							{
-								p.write(i + x, j + y, cur.fg, cur.bg, value, this);
-							}
-						
-						case Border(values):
-							var val = TileUtil.borderAutoTile(i, j, this, cur, values);
-							p.write(i + x, j + y, cur.fg, cur.bg, val, this);
-						
-						case Water(values, shorefg, shorebg):	
-							var val = values.oooo;//TileUtil.waterAutoTile(i, j, this, cur, values);
-							if (val == values.oooo)
-							{
-								p.write(i + x, j + y, cur.fg, cur.bg, val, this);
-							}
-							else
-							{
-								p.write(i + x, j + y, shorefg, shorebg, val, this);
-							}
+						cur.rc[k].render(p, c, cur, this, i, j, i + x, j + y, true);
 					}
-					cur._ch = false;
 				}
 			}
 		}

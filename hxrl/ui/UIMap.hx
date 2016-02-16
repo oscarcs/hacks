@@ -2,7 +2,7 @@ package hxrl.ui;
 
 import hxrl.render.Panel;
 import hxrl.render.Camera;
-import hxrl.tile.TileList;
+import hxrl.tile.Tiles;
 import hxrl.world.World;
 
 /**
@@ -35,7 +35,7 @@ class UIMap extends UI
 				var type:String = world.readChunkType(xt, yt);
 				
 				if (uiData.hasBorder) { xt++; yt++; }
-				write(xt, yt, TileList.get(type));
+				write(xt, yt, Tiles.get(type));
 			}
 		}
 	}

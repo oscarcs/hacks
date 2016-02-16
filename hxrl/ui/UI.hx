@@ -6,8 +6,8 @@ import hxrl.render.Camera;
 import hxrl.render.IRenderable;
 import hxrl.render.Panel;
 import hxrl.tile.ITileable;
-import hxrl.tile.TileList;
-import hxrl.tile.TileList.RLTile;
+import hxrl.tile.Tiles;
+import hxrl.tile.Tiles.RLTile;
 import hxrl.tile.TileUtil;
 
 typedef UIData = {
@@ -39,21 +39,21 @@ class UI implements IRenderable implements ITileable
 		this.w = w;
 		this.h = h;
 		
-		buffer = [for (i in 0...w) for (j in 0...h) TileList.get("none") ];
+		buffer = [for (i in 0...w) for (j in 0...h) Tiles.get("none") ];
 	}
 	
 	public function init(ui:UIData)
 	{
 		uiData = ui;
 			
-		var backTile:RLTile = TileList.get(uiData.backName);
+		var backTile:RLTile = Tiles.get(uiData.backName);
 		backTile.fg = uiData.fg;
 		backTile.bg = uiData.bg;
 		
-		var borderTile:RLTile = TileList.get('none');
+		var borderTile:RLTile = Tiles.get('none');
 		if (uiData.hasBorder)
 		{
-			borderTile = TileList.get(uiData.edgeName);
+			borderTile = Tiles.get(uiData.edgeName);
 			borderTile.fg = uiData.fg;
 			borderTile.bg = uiData.bg;
 		}

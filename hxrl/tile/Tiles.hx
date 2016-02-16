@@ -2,7 +2,7 @@ package hxrl.tile;
 
 import haxe.Json;
 import hxrl.render.TileRenderComponent;
-import hxrl.tile.TileList.RLTile;
+import hxrl.tile.Tiles.RLTile;
 import hxrl.render.Color;
 import hxrl.render.Color.ARGB;
 import hxrl.render.IRenderComponent;
@@ -25,8 +25,11 @@ typedef RLTile = {
  * Static list of tiles. Will eventually be loaded from file.
  * @author oscarcs
  */
-class TileList
+class Tiles
 {
+	public static var tileList:Map<String, RLTile>;
+	public static var renderComponentList:Map<String, Class<IRenderComponent>>;
+	
 	//hardcoded fallback
 	public static var none:RLTile = {
 		tiletype:"none",
@@ -37,23 +40,26 @@ class TileList
 		_ch:true
 	}
 	
-	public static var tiles:Map<String, RLTile>;
-	
 	//TODO load from JSON instead of using statically coded tiles.
 	public static function get(name:String):RLTile
 	{
 		var t:RLTile;
 		if (name == 'none') 
 		{
-			t = TileList.none;
+			t = Tiles.none;
 		}   
 		else
 		{  
-			t = TileList.tiles.get(name);
+			t = Tiles.tileList.get(name);
 		}
 		
 		//TODO: deep copy rc
 		var wt:RLTile = { tiletype:t.tiletype, solid:t.solid, rc:t.rc, fg:t.fg, bg:t.bg, _ch:t._ch };
 		return wt;
+	}
+	
+	public static function addRenderComponent(name:String, rc:Class<IRenderComponent>)
+	{
+		
 	}
 }

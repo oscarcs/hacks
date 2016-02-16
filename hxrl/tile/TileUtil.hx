@@ -3,7 +3,7 @@ package hxrl.tile;
 import hxrl.render.Color;
 import hxrl.render.Color.ARGB;
 import hxrl.render.TileRenderComponent;
-import hxrl.tile.TileList.RLTile;
+import hxrl.tile.Tiles.RLTile;
 import hxrl.world.World;
 
 /**
@@ -14,8 +14,8 @@ class TileUtil
 {
 	//code page 437
 	public static var chars = " !\"#$%&'()*+,-./0123456789:;<=>?@" +
-							"ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`" +
-							"abcdefghijklmnopqrstuvwxyz{|}~";
+							  "ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`" +
+							  "abcdefghijklmnopqrstuvwxyz{|}~";
 	
 	public static function drawText(xt:Int, yt:Int, context:ITileable, text:String, fg:ARGB, bg:ARGB, ?wrapWidth:Int):Void
 	{

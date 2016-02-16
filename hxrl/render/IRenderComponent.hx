@@ -1,7 +1,7 @@
 package hxrl.render;
 
 import hxrl.tile.ITileable;
-import hxrl.tile.TileList.RLTile;
+import hxrl.tile.Tiles.RLTile;
 
 /**
  * @author oscarcs

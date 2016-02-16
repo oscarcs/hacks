@@ -16,6 +16,9 @@ class Random
 		seed = x;
 	}
 	
+	/**
+	 * Return a random 32-bit int
+	 */
 	public static function nextInt()
 	{
 		seed ^= seed << 13;

@@ -3,7 +3,7 @@ package hxrl.tile;
 import hxrl.render.Panel;
 import hxrl.render.Camera;
 import hxrl.render.IRenderable;
-import hxrl.tile.TileList.RLTile;
+import hxrl.tile.Tiles.RLTile;
 
 /**
  * @author oscarcs

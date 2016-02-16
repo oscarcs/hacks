@@ -8,13 +8,13 @@ import hxrl.render.Panel;
 import hxrl.render.Panel.ScreenTile;
 import hxrl.render.Camera;
 import hxrl.tile.ITileable;
-import hxrl.tile.TileList;
-import hxrl.tile.TileList.RLTile;
+import hxrl.tile.Tiles;
+import hxrl.tile.Tiles.RLTile;
 import hxrl.tile.TileUtil;
 
 /**
  * Represents and renders the currently-loaded 'static' map.
- * Override this class to generate and load a world.
+ * Extend this class to generate and load a world.
  * @author oscarcs
  */
 class World implements IRenderable implements ITileable
@@ -31,7 +31,7 @@ class World implements IRenderable implements ITileable
 		this.w = w;
 		this.h = h;
 		
-		buffer = [for (i in 0...w) for (j in 0...h) TileList.get("none") ];
+		buffer = [for (i in 0...w) for (j in 0...h) Tiles.get("none") ];
 		
 		//set up chunk types.
 		chunkTypes = [for (i in 0...Std.int(w / chunk_w)) for (j in 0...Std.int(h / chunk_h)) "none" ];

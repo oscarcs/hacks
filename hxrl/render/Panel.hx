@@ -1,15 +1,5 @@
 package hxrl.render;
 
-import openfl.Assets;
-import openfl.display.Bitmap;
-import openfl.geom.ColorTransform;
-import openfl.geom.Point;
-import openfl.geom.Rectangle;
-import openfl.display.Sprite;
-import openfl.display.Tilesheet;
-import openfl.display.BitmapData;
-import openfl.utils.ByteArray;
-
 import hxrl.render.Color.ARGB;
 
 typedef ScreenTile = {
@@ -32,27 +22,20 @@ class Panel
 	public var tile_h:Int = 16;	//Height of a tile.
 	public var sheet_w:Int;			//Spritesheet width in tiles.
 	public var sheet_h:Int;		//Spritesheet height in tiles.
+	public var image:String;
 	
 	var screenBuffer:Array<ScreenTile> = [];
-
-	//framework-specific
-	public var surface:BitmapData;
-	private var tilemap:BitmapData;
-	private var rArr:Array<Int> = [for (i in 0...256) 0];
-	private var gArr:Array<Int> = [for (i in 0...256) 0];
-	private var bArr:Array<Int> = [for (i in 0...256) 0];
 	
 	public function new(image:String) 
 	{
 		w = Std.int(640 / tile_w);
 		h = Std.int(480 / tile_h);
+		this.image = image;
 		
 		screenBuffer = [for (x in 0...w) for (y in 0...h) { fg:Color.BLACK, bg:Color.WHITE, value:0, _ch:true } ];
 		
-		//framework-specific
-		tilemap = Assets.getBitmapData(image);
-		sheet_w = Std.int(tilemap.width / tile_w);
-		sheet_h = Std.int(tilemap.height / tile_h);
+		//call framework-specific code
+		RL.backend.setup_panel(this);
 	}
 	
 	public function read(xt:Int, yt:Int):ScreenTile
@@ -79,51 +62,18 @@ class Panel
 	}
 	
 	/**
-	 * Main rendering function. Currently optimized for OpenFL's flash target, uses copyPixels.
-	 * This code class is designed so that any dependency on a rendering library
-	 * needs only to be coupled to this method.
+	 * Main rendering function
+	 * This code is designed so that any dependency on a rendering library
+	 * is abstracted into hxrl.backends.
 	 */
 	public function draw()
 	{
-		//framework-specific
-		for (x in 0...w)
-		{
-			for (y in 0...h)
-			{
-				var cur = read(x, y);
-				if (cur._ch)
-				{
-					var xt = cur.value % (sheet_w);
-					var yt = Std.int(cur.value / (sheet_w));
-					
-					surface.copyPixels(tilemap, new Rectangle(xt * tile_w, yt * tile_h, tile_w, tile_h), new Point(x * tile_w, y * tile_h));
-					
-					
-					if (cur.bg != Color.BLACK)
-					{
-						rArr[0] = Color.ARGBtoHex(cur.bg);
-						gArr[0] = Color.ARGBtoHex(cur.bg);
-						bArr[0] = Color.ARGBtoHex(cur.bg);				
-	
-						rArr[255] = Color.ARGBtoHex(cur.fg);
-						gArr[255] = Color.ARGBtoHex(cur.fg);
-						bArr[255] = Color.ARGBtoHex(cur.fg);
-						
-						surface.paletteMap(Main.inst.surface, new Rectangle(x * tile_w, y * tile_h, tile_w, tile_h), new Point(x * tile_w, y * tile_h), rArr, gArr, bArr, null);
-					}
-					else //faster!
-					{
-						surface.colorTransform(new Rectangle(x * tile_w, y * tile_h, tile_w, tile_h), new ColorTransform(cur.fg.r / 255, cur.fg.g / 255, cur.fg.b / 255, 1, 0, 0, 0, 0));
-					}
-					cur._ch = false;
-					
-				}
-			}
-		}
+		//call framework-specific code
+		RL.backend.render_panel(this);
 	}
 	
 	/**
-	 * Force the Panel to be updated by removing mutexes and setting update flags.
+	 * Force the Panel to be updated for redrawing by removing mutexes and setting update flags.
 	 */
 	public function forceRedraw()
 	{

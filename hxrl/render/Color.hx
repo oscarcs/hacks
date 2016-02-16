@@ -2,11 +2,12 @@ package hxrl.render;
 import haxerl.*;
 
 typedef HSV = {
-	var h:Float;
-	var s:Float;
-	var v:Float;
+	var h:Float; //0-360
+	var s:Float; //0-100
+	var v:Float; //0-100
 }
 
+//0-255
 typedef ARGB = {
 	var a:Float;
 	var r:Float;
@@ -49,7 +50,7 @@ class Color
 		return conv;
 	}
 	
-	public static function HSVtoRGB(hsv:HSV):ARGB
+	public static function HSVtoARGB(hsv:HSV):ARGB
 	{
 		var H:Float = hsv.h / 360;
 		var S:Float = hsv.s / 100;
@@ -88,7 +89,7 @@ class Color
 		return { a:255, r:R, g:G, b:B };
 	}
 	
-	public function ARGBtoHSV(argb:ARGB):HSV
+	public static function ARGBtoHSV(argb:ARGB):HSV
 	{
 		var r:Float, g:Float, b:Float;
 		r = argb.r / 255;

@@ -12,8 +12,8 @@ import hxrl.world.World;
  */
 class Entity implements IRenderable
 {
-	public var x(default, set):Int;
-	public var y(default, set):Int;
+	public var x:Int;
+	public var y:Int;
 	public var world:World;
 	
 	public function new(x:Int, y:Int, world:World) 
@@ -22,7 +22,9 @@ class Entity implements IRenderable
 		this.x = x;
 		this.y = y;
 		
-		move(x, y);
+		world.read(x, y).entity = null;
+		world.read(x, y)._ch = true;
+		world.read(x, y).entity = this;
 	}
 	
 	public function draw(p:Panel, c:Camera):Void
@@ -30,30 +32,18 @@ class Entity implements IRenderable
 		
 	}
 	
-	function set_x(nx:Int)
+	public function canMove(xt:Int, yt:Int)
 	{
-		if (!world.read(nx, y).solid)
-		{
-			move(x, y);
-			return x = nx;
-		}
-		return x;
+		return true;
 	}
 	
-	function set_y(ny:Int)
+	public function move(xt:Int, yt:Int)
 	{
-		if (!world.read(x, ny).solid)
+		if(canMove(xt, yt))
 		{
-			move(x, y);
-			return y = ny;
+			world.read(x, y).entity = null;
+			world.read(x, y)._ch = true;
+			world.read(xt, yt).entity = this;
 		}
-		return y;
-	}
-	
-	private function move(xt:Int, yt:Int)
-	{
-		world.read(x, y).entity = null;
-		world.read(x, y)._ch = true;
-		world.read(xt, yt).entity = this;
 	}
 }

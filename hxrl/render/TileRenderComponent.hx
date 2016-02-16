@@ -2,7 +2,7 @@ package hxrl.render;
 import hxrl.tile.ITileable;
 import hxrl.render.Camera;
 import hxrl.render.Panel;
-import hxrl.tile.TileList.RLTile;
+import hxrl.tile.Tiles.RLTile;
 
 /**
  * ...

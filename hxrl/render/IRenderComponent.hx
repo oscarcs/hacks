@@ -8,6 +8,8 @@ import hxrl.tile.Tiles.RLTile;
  */
 interface IRenderComponent 
 {
+	//note: all render component types need a parseArgs function
+	
 	//TODO: this method signature is an unwieldy, ungodly behemoth
 	/**
 	 * 

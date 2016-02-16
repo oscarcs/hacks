@@ -1,6 +1,8 @@
 package hxrl;
 
 import hxrl.backends.IBackend;
+import hxrl.render.TileRenderComponent;
+import hxrl.tile.Tiles;
 
 /**
  * This class manages the library functions; abstracts away platform
@@ -13,6 +15,8 @@ class RL
 	
 	public static function setup()
 	{
+		Tiles.setRenderComponent('TileRenderComponent', TileRenderComponent);
+		
 		backend.setup();
 	}
 }

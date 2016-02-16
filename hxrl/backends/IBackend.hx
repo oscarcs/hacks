@@ -21,4 +21,9 @@ interface IBackend
 	 * Render the contents of a panel.
 	 */
 	public function render_panel(panel:Panel):Void;
+	
+	/**
+	 * Get a text file and return a String.
+	 */
+	public function get_text(filepath:String):String;
 }

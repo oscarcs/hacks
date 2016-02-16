@@ -27,8 +27,8 @@ typedef RLTile = {
  */
 class Tiles
 {
-	public static var tileList:Map<String, RLTile>;
-	public static var renderComponentList:Map<String, Class<IRenderComponent>>;
+	private static var tileList:Map<String, RLTile> = ['none' => Tiles.none];
+	private static var renderComponentList:Map<String, Class<IRenderComponent>> = new Map<String, Class<IRenderComponent>>();
 	
 	//hardcoded fallback
 	public static var none:RLTile = {
@@ -40,7 +40,21 @@ class Tiles
 		_ch:true
 	}
 	
-	//TODO load from JSON instead of using statically coded tiles.
+	/**
+	 * Add a tile definition to the tile list.
+	 * @param	name
+	 * @param	tile
+	 */
+	public static function set(name:String, tile:RLTile)
+	{
+		Tiles.tileList.set(name, tile);
+	}
+	
+	/**
+	 * Get an instance of a tile in the tile list.
+	 * @param	name
+	 * @return
+	 */
 	public static function get(name:String):RLTile
 	{
 		var t:RLTile;
@@ -58,8 +72,75 @@ class Tiles
 		return wt;
 	}
 	
-	public static function addRenderComponent(name:String, rc:Class<IRenderComponent>)
+	/**
+	 * Register a render component type.
+	 * @param	name
+	 * @param	rc
+	 */
+	public static function setRenderComponent(name:String, rc:Class<IRenderComponent>)
 	{
+		Tiles.renderComponentList.set(name, rc);
+	}
+	
+	/**
+	 * Create an instance of a render component.
+	 * @param	name
+	 * @param	args
+	 * @return
+	 */
+	public static function getRenderComponent(name:String, args:Array<Dynamic>):IRenderComponent
+	{
+		return Type.createInstance(renderComponentList.get(name), args);
+	}
+	
+	//(un)serializing arbitrary data isn't very type-safe...
+	/**
+	 * Load a tile definition from file
+	 * @param	def	The location of a tile definition JSON file.
+	 */
+	public static function loadTiledef(def:String)
+	{
+		var text = RL.backend.get_text(def);
+		if (text != null)
+		{
+			var json:Dynamic = Json.parse(text);
+			
+			var tile:RLTile = get('none');
+			tile.tiletype = json.tiletype;
+			tile.solid = json.solid;
 		
+			if (Std.is(json.fg, String))
+			{
+				tile.fg = Color.get(json.fg);
+			}
+			else
+			{
+				tile.fg = json.fg;
+			}
+			
+			if (Std.is(json.bg, String))
+			{
+				tile.bg = Color.get(json.bg);
+			}
+			else
+			{
+				tile.bg = json.bg;
+			}
+			
+			tile.rc = [];
+			for (i in 0...json.rc.length)
+			{
+				var cur = json.rc[i];
+				var classname:Dynamic = renderComponentList.get(cur.rc);
+				cur.args = classname.parseArgs(cur.args);
+				tile.rc.push(getRenderComponent(cur.rc, cur.args));
+			}
+			trace(tile);
+			Tiles.set(json.name, tile);
+		}
+		else
+		{
+			throw('Tiledef ' + def + ' could not be loaded.');
+		}
 	}
 }

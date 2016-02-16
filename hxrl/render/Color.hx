@@ -26,6 +26,24 @@ class Color
 	public static var RED:ARGB = 	{	a:255,	r:255, 	g:0, 	b:0 	};
 	public static var GREEN:ARGB = 	{	a:255,	r:0, 	g:255, 	b:0 	};
 	public static var BLUE:ARGB = 	{	a:255,	r:0, 	g:0, 	b:255 	};
+	private static var colorList:Map<String, ARGB> =
+	[
+		'white' => Color.WHITE,
+		'black' => Color.BLACK,
+		'red'	=> Color.RED,
+		'green' => Color.GREEN,
+		'blue'	=> Color.BLUE
+	];
+	
+	private static function set(name:String, color:ARGB)
+	{
+		Color.colorList.set(name, color);
+	}
+	
+	public static function get(name:String):ARGB
+	{
+		return Color.colorList.get(name);
+	}
 	
 	public static function ARGBtoHex(rgb:ARGB):Int
 	{

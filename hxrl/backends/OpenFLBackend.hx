@@ -87,4 +87,9 @@ class OpenFLBackend implements IBackend
 		}
 	}
 	
+	public function get_text(filepath:String):String
+	{
+		return Assets.getText(filepath);
+	}
+	
 }

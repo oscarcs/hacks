@@ -26,10 +26,15 @@ class Panel
 	
 	var screenBuffer:Array<ScreenTile> = [];
 	
-	public function new(image:String) 
+	/**
+	 * @param	image	tilesheet image
+	 * @param	wt	width in tiles
+	 * @param	ht	height in tiles
+	 */
+	public function new(image:String, wt:Int, ht:Int) 
 	{
-		w = Std.int(640 / tile_w);
-		h = Std.int(480 / tile_h);
+		w = wt;
+		h = ht;
 		this.image = image;
 		
 		screenBuffer = [for (x in 0...w) for (y in 0...h) { fg:Color.BLACK, bg:Color.WHITE, value:0, _ch:true } ];

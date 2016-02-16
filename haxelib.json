@@ -1,0 +1,12 @@
+{
+  "name": "hxRL",
+  "url" : "https://github.com/oscarcs/hxRL/",
+  "license": "MIT",
+  "tags": ["roguelike"],
+  "description": "Haxe roguelike library",
+  "version": "0.1.0",
+  "releasenote": "Before initial release",
+  "contributors": ["oscarcs"],
+  "dependencies": {
+  }
+}

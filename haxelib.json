@@ -4,8 +4,8 @@
   "license": "MIT",
   "tags": ["roguelike"],
   "description": "Haxe roguelike library",
-  "version": "0.1.1",
-  "releasenote": "Added loading tiledefs from file",
+  "version": "0.1.2",
+  "releasenote": "Minor Panel fixes",
   "contributors": ["oscarcs"],
   "dependencies": {
   }

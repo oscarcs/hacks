@@ -16,25 +16,29 @@ typedef ScreenTile = {
  */
 class Panel
 {
-	public var w:Int = 64;		//Width in tiles.
-	public var h:Int = 48;		//Height in tiles.
-	public var tile_w:Int = 9;		//Width of a tile.
-	public var tile_h:Int = 16;	//Height of a tile.
-	public var sheet_w:Int;			//Spritesheet width in tiles.
-	public var sheet_h:Int;		//Spritesheet height in tiles.
+	public var w:Int;		//Width in tiles.
+	public var h:Int;		//Height in tiles.
+	public var tile_w:Int;	//Width of a tile.
+	public var tile_h:Int;	//Height of a tile.
+	public var sheet_w:Int;	//Spritesheet width in tiles.
+	public var sheet_h:Int;	//Spritesheet height in tiles.
 	public var image:String;
 	
 	var screenBuffer:Array<ScreenTile> = [];
 	
 	/**
-	 * @param	image	tilesheet image
+	 * @param	image
 	 * @param	wt	width in tiles
 	 * @param	ht	height in tiles
+	 * @param	tile_w width of a tile
+	 * @param	tile_h height of a tile
 	 */
-	public function new(image:String, wt:Int, ht:Int) 
+	public function new(image:String, wt:Int, ht:Int, tile_w:Int, tile_h:Int) 
 	{
 		w = wt;
 		h = ht;
+		this.tile_w = tile_w;
+		this.tile_h = tile_h;
 		this.image = image;
 		
 		screenBuffer = [for (x in 0...w) for (y in 0...h) { fg:Color.BLACK, bg:Color.WHITE, value:0, _ch:true } ];

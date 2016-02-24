@@ -17,7 +17,7 @@ class RL
 	
 	public static function setup(backend:IBackend)
 	{
-		this.backend = backend;
+		RL.backend = backend;
 		Tiles.setRenderComponent('TileRenderComponent', TileRenderComponent);
 		
 		backend.setup();

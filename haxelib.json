@@ -4,8 +4,8 @@
   "license": "MIT",
   "tags": ["roguelike"],
   "description": "Haxe roguelike library",
-  "version": "0.1.2",
-  "releasenote": "Minor Panel fixes",
+  "version": "0.1.3",
+  "releasenote": "Add bresenham lines",
   "contributors": ["oscarcs"],
   "dependencies": {
   }

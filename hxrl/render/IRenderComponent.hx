@@ -4,11 +4,13 @@ import hxrl.tile.ITileable;
 import hxrl.tile.Tiles.RLTile;
 
 /**
+ * Render component base interface.
+ * Note: all render component types need a parseArgs function.
  * @author oscarcs
  */
 interface IRenderComponent 
 {
-	//note: all render component types need a parseArgs function
+	
 	
 	//TODO: this method signature is an unwieldy, ungodly behemoth
 	/**
@@ -21,6 +23,7 @@ interface IRenderComponent
 	 * @param	yt	Tile position y
 	 * @param	xr	Render position x
 	 * @param	yr	Render position y
+	 * @param	lock	Lock the panel on render?
 	 */
 	public function render(p:Panel, c:Camera, cur:RLTile, context:ITileable, xt:Int, yt:Int, xr:Int, yr:Int, ?lock:Bool):Void;
 }

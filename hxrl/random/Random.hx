@@ -6,27 +6,46 @@ package hxrl.random;
  * @see http://excamera.com/sphinx/article-xorshift.html
  * @author oscarcs
  */
-class Random
+class Random implements IRandom
 {
-	public static var seed:Int = 4; //chosen by fair dice roll. 
-									//guaranteed to be random.
+	public var seed:Int = 4;//chosen by fair dice roll. 
+							//guaranteed to be random.
+							
+	public function new(?seed:Int)
+	{
+		if (seed != null)
+		{
+			this.seed = seed;
+		}
+	}
 	
-	public static function setSeed(x:Int)
+	public function setSeed(x:Int):Void
 	{
 		seed = x;
 	}
 	
 	/**
-	 * Return a random 32-bit int
+	 * Return a random Int.
+	 * @param	bits	Number of random bits to generate.
 	 */
-	public static function nextInt()
+	public function next(?bits:Int = 32):Int
 	{
 		seed ^= seed << 13;
 		seed ^= seed >> 17;
 		seed ^= seed << 5;
-		return seed;
+		
+		return seed >>> (32 - bits);
 	}
 	
+	/**
+	 * Get a random value between 0 and 1.
+	 * This implementation is imperfect but probably sufficient.
+	 */
+	public function nextFloat():Float
+	{
+		return Math.abs(next() / 0x7FFFFFFF);
+	}
+		
 	/**
 	 * Generate int in range [min, max].
 	 * Based on Java implementation from
@@ -34,17 +53,13 @@ class Random
 	 * @param	min
 	 * @param	max
 	 */
-	public static function nextRangedInt(min:Int, max:Int)
+	public function nextRangedInt(min:Int, max:Int):Int
 	{
 		return min + Std.int((nextFloat() * ((max - min) + 1)));
 	}
 	
-	/**
-	 * Get a random value between 0 and 1.
-	 * Not thoroughly tested, but probably sufficient.
-	 */
-	public static function nextFloat()
+	public function nextBool():Bool
 	{
-		return Math.abs(nextInt() / 0x7FFFFFFF);
+		return next(1) == 1 ? true : false;
 	}
 }

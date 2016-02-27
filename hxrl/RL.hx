@@ -1,6 +1,8 @@
 package hxrl;
 
 import hxrl.backends.IBackend;
+import hxrl.random.IRandom;
+import hxrl.random.Random;
 import hxrl.render.Camera;
 import hxrl.render.TileRenderComponent;
 import hxrl.tile.Tiles;
@@ -12,6 +14,15 @@ import hxrl.tile.Tiles;
  */
 class RL
 {
+	//TODO: use a better source of random to set seed.
+	/**
+	 * Default random.
+	 */
+	public static var random:IRandom = new Random(Std.random(0x7FFFFFFF - 1));
+	
+	/**
+	 * Default camera.
+	 */
 	public static var camera = new Camera();
 	public static var backend:IBackend;
 	

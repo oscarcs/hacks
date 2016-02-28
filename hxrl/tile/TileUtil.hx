@@ -19,7 +19,7 @@ class TileUtil
 	
 	/**
 	 * String containing every character by tileset index.
-	 * Defaults to IBM code page 437.
+	 * Defaults is IBM code page 437.
 	 */
 	public static var chars = " !\"#$%&'()*+,-./0123456789:;<=>?" +
 							  "@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_" +
@@ -42,16 +42,16 @@ class TileUtil
 		for (i in 0...text.length)
 		{
 			var char:Int = chars.indexOf(text.charAt(i));
+			
 			if (char == -1 || x > wrapWidth + xt - 1)
 			{
 				yt++;
 				x = xt;
 			}
-			else {
-				char += 32;
-				context.write(x, yt, { solid:false, rc:[new TileRenderComponent(char)], fg:fg, bg:bg, _ch:true } );
-				x++;
-			}
+			
+			char += offset;
+			context.write(x, yt, { solid:false, rc:[new TileRenderComponent(char)], fg:fg, bg:bg, _ch:true } );
+			x++;
 		}
 	}
 	

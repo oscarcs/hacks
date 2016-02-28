@@ -4,8 +4,8 @@
   "license": "MIT",
   "tags": ["roguelike"],
   "description": "Haxe roguelike library",
-  "version": "0.1.5",
-  "releasenote": "Fix magic numbers in openfl backend.",
+  "version": "0.1.6",
+  "releasenote": "Improve the UI class by allowing the title colours to be set individually.",
   "contributors": ["oscarcs"],
   "dependencies": {
   }

@@ -15,8 +15,11 @@ typedef UIData = {
 	var title:String;
 	var fg:ARGB;
 	var bg:ARGB;
-	@optional var edgeName:String;
-	@optional var backName:String;
+	var edgeName:String;
+	var backName:String;
+	
+	@:optional var titlefg:ARGB;
+	@:optional var titlebg:ARGB;
 }
 
 /**
@@ -74,7 +77,13 @@ class UI implements IRenderable implements ITileable
 		}
 		if (uiData.title != "")
 		{
-			TileUtil.drawText(Std.int((w - uiData.title.length) / 2), 0, this, uiData.title, uiData.fg, uiData.bg);
+			var fg:ARGB = uiData.fg;
+			var bg:ARGB = uiData.bg;
+			trace(uiData.titlefg, uiData.titlebg);
+			if (uiData.titlefg != null) fg = uiData.titlefg;
+			if (uiData.titlebg != null) bg = uiData.titlebg;
+			
+			TileUtil.drawText(Std.int((w - uiData.title.length) / 2), 0, this, uiData.title, fg, bg);
 		}
 	}
 	

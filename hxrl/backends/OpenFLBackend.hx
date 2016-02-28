@@ -1,5 +1,6 @@
 package hxrl.backends;
 
+import openfl.Lib;
 import openfl.Assets;
 import openfl.geom.ColorTransform;
 import openfl.geom.Point;
@@ -34,7 +35,9 @@ class OpenFLBackend implements IBackend
 	
 	public function setup()
 	{
-		surface = new BitmapData(Std.int(640), Std.int(480), false, 0xFFAAAAAA);
+		var w = Lib.current.stage.stageWidth;
+		var h = Lib.current.stage.stageHeight;
+		surface = new BitmapData(w, h, false, 0xFFAAAAAA);
 		bitmap = new Bitmap(surface);
 	}
 	

@@ -48,10 +48,12 @@ class TileUtil
 				yt++;
 				x = xt;
 			}
-			
-			char += offset;
-			context.write(x, yt, { solid:false, rc:[new TileRenderComponent(char)], fg:fg, bg:bg, _ch:true } );
-			x++;
+			if (char != -1)
+			{
+				char += offset;
+				context.write(x, yt, { solid:false, rc:[new TileRenderComponent(char)], fg:fg, bg:bg, _ch:true } );
+				x++;
+			}
 		}
 	}
 	

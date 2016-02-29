@@ -93,10 +93,10 @@ class Tiles
 		return Type.createInstance(renderComponentList.get(name), args);
 	}
 	
-	//(un)serializing arbitrary data isn't very type-safe...
 	/**
-	 * Load a tile definition from file
-	 * @param	def	The location of a tile definition JSON file.
+	 * Load a tile definition from file.
+	 * [Un]serializing arbitrary data isn't very type-safe...
+	 * @param	def	The location of a JSON tile definition file.
 	 */
 	public static function loadTiledef(def:String)
 	{
@@ -135,7 +135,6 @@ class Tiles
 				cur.args = classname.parseArgs(cur.args);
 				tile.rc.push(getRenderComponent(cur.rc, cur.args));
 			}
-			trace(tile);
 			Tiles.set(json.name, tile);
 		}
 		else

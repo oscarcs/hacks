@@ -4,8 +4,8 @@
   "license": "MIT",
   "tags": ["roguelike"],
   "description": "Haxe roguelike library",
-  "version": "0.1.6",
-  "releasenote": "Improve the UI class by allowing the title colours to be set individually.",
+  "version": "0.1.7",
+  "releasenote": "Change the way in which UI is instantiated, misc minor fixes.",
   "contributors": ["oscarcs"],
   "dependencies": {
   }

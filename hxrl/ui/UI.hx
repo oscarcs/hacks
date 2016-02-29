@@ -10,20 +10,25 @@ import hxrl.tile.Tiles;
 import hxrl.tile.Tiles.RLTile;
 import hxrl.tile.TileUtil;
 
-typedef UIData = {
-	var hasBorder:Bool;
-	var title:String;
-	var fg:ARGB;
-	var bg:ARGB;
-	var edgeName:String;
-	var backName:String;
+/**
+ * Javascript-style options type.
+ */
+typedef UIOptions = {
+	@:optional var hasBorder:Bool;
+	@:optional var title:String;
+	@:optional var fg:ARGB;
+	@:optional var bg:ARGB;
+	@:optional var edgeName:String;
+	@:optional var backName:String;
 	
-	@:optional var titlefg:ARGB;
-	@:optional var titlebg:ARGB;
+	//title
+	@:optional var title_fg:ARGB;
+	@:optional var title_bg:ARGB;
+	@:optional var title_x:Int;
 }
 
 /**
- * ...
+ * General UI element class.
  * @author oscarcs
  */
 class UI implements IRenderable implements ITileable
@@ -33,9 +38,9 @@ class UI implements IRenderable implements ITileable
 	public var w:Int;
 	public var h:Int;
 	public var buffer:Array<RLTile> = [];
-	private var uiData:UIData;
+	private var options:UIOptions;
 	
-	public function new(xt:Int, yt:Int, w:Int, h:Int)
+	public function new(xt:Int, yt:Int, w:Int, h:Int, ?opts:UIOptions)
 	{
 		x = xt;
 		y = yt;
@@ -43,29 +48,34 @@ class UI implements IRenderable implements ITileable
 		this.h = h;
 		
 		buffer = [for (i in 0...w) for (j in 0...h) Tiles.get("none") ];
-	}
-	
-	public function init(ui:UIData)
-	{
-		uiData = ui;
-			
-		var backTile:RLTile = Tiles.get(uiData.backName);
-		backTile.fg = uiData.fg;
-		backTile.bg = uiData.bg;
+		
+		// initialize options:
+		opts != null ? options = opts : options = { };
+		
+		if (options.hasBorder == null) options.hasBorder = false;
+		if (options.title == null) options.title = '';
+		if (options.fg == null) options.fg = Color.get('white');
+		if (options.bg == null) options.bg = Color.get('black');
+		if (options.backName == null) options.backName = 'none';
+		if (options.edgeName == null) options.edgeName = 'none';
+		
+		var backTile:RLTile = Tiles.get(options.backName);
+		backTile.fg = options.fg;
+		backTile.bg = options.bg;
 		
 		var borderTile:RLTile = Tiles.get('none');
-		if (uiData.hasBorder)
+		if (options.hasBorder)
 		{
-			borderTile = Tiles.get(uiData.edgeName);
-			borderTile.fg = uiData.fg;
-			borderTile.bg = uiData.bg;
+			borderTile = Tiles.get(options.edgeName);
+			borderTile.fg = options.fg;
+			borderTile.bg = options.bg;
 		}
 		
 		for (i in 0...w)
 		{
 			for (j in 0...h)
 			{
-				if (uiData.hasBorder && (i == 0 || i == w - 1 || j == 0 || j == h - 1))
+				if (options.hasBorder && (i == 0 || i == w - 1 || j == 0 || j == h - 1))
 				{
 					write(i, j, borderTile);
 				}
@@ -75,15 +85,17 @@ class UI implements IRenderable implements ITileable
 				}
 			}
 		}
-		if (uiData.title != "")
+		if (options.title != "")
 		{
-			var fg:ARGB = uiData.fg;
-			var bg:ARGB = uiData.bg;
-			trace(uiData.titlefg, uiData.titlebg);
-			if (uiData.titlefg != null) fg = uiData.titlefg;
-			if (uiData.titlebg != null) bg = uiData.titlebg;
+			var fg:ARGB = options.fg;
+			var bg:ARGB = options.bg;
+			var title_x:Int = Std.int((this.w - options.title.length) / 2);
 			
-			TileUtil.drawText(Std.int((w - uiData.title.length) / 2), 0, this, uiData.title, fg, bg);
+			if (options.title_fg != null) fg = options.title_fg;
+			if (options.title_bg != null) bg = options.title_bg;
+			if (options.title_x != null) title_x = options.title_x;
+			
+			TileUtil.drawText(title_x, 0, this, options.title, fg, bg);
 		}
 	}
 	

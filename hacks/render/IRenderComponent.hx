@@ -1,7 +1,8 @@
-package hxrl.render;
+package hacks.render;
+import hacks.tile.Tiles;
 
-import hxrl.tile.ITileable;
-import hxrl.tile.Tiles.RLTile;
+import hacks.tile.ITileable;
+import hacks.tile.Tiles.RLTile;
 
 /**
  * Render component base interface.

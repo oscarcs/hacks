@@ -1,5 +1,5 @@
-package hxrl.render;
-import hxrl.render.Panel;
+package hacks.render;
+import hacks.render.Panel;
 
 /**
  * Grouping and render list class.

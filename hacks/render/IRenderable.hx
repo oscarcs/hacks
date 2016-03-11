@@ -1,4 +1,4 @@
-package hxrl.render;
+package hacks.render;
 
 /**
  * Any 'thing' that can be drawn by a camera.

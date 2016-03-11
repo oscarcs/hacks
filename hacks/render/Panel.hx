@@ -1,6 +1,7 @@
-package hxrl.render;
+package hacks.render;
 
-import hxrl.render.Color.ARGB;
+import hacks.RL;
+import hacks.render.Color.ARGB;
 
 typedef ScreenTile = {
 	var fg:ARGB;	//foreground
@@ -73,7 +74,7 @@ class Panel
 	/**
 	 * Main rendering function
 	 * This code is designed so that any dependency on a rendering library
-	 * is abstracted into hxrl.backends.
+	 * is abstracted into libhacks.backends
 	 */
 	public function draw()
 	{

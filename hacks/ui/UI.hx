@@ -1,14 +1,14 @@
-package hxrl.ui;
+package hacks.ui;
 
-import hxrl.render.Color;
-import hxrl.render.Color.ARGB;
-import hxrl.render.Camera;
-import hxrl.render.IRenderable;
-import hxrl.render.Panel;
-import hxrl.tile.ITileable;
-import hxrl.tile.Tiles;
-import hxrl.tile.Tiles.RLTile;
-import hxrl.tile.TileUtil;
+import hacks.render.Color;
+import hacks.render.Color.ARGB;
+import hacks.render.Camera;
+import hacks.render.IRenderable;
+import hacks.render.Panel;
+import hacks.tile.ITileable;
+import hacks.tile.Tiles;
+import hacks.tile.Tiles.RLTile;
+import hacks.tile.TileUtil;
 
 /**
  * Javascript-style options type.

@@ -1,8 +1,9 @@
-package hxrl.render;
-import hxrl.tile.ITileable;
-import hxrl.render.Camera;
-import hxrl.render.Panel;
-import hxrl.tile.Tiles.RLTile;
+package hacks.render;
+import hacks.tile.ITileable;
+import hacks.tile.Tiles;
+import hacks.render.Camera;
+import hacks.render.Panel;
+import hacks.tile.Tiles.RLTile;
 
 /**
  * ...

@@ -1,9 +1,9 @@
-package hxrl.tile;
+package hacks.tile;
 
-import hxrl.render.Panel;
-import hxrl.render.Camera;
-import hxrl.render.IRenderable;
-import hxrl.tile.Tiles.RLTile;
+import hacks.render.Panel;
+import hacks.render.Camera;
+import hacks.render.IRenderable;
+import hacks.tile.Tiles.RLTile;
 
 /**
  * Any drawable 'thing' that also holds a datastructure containing RLTiles.

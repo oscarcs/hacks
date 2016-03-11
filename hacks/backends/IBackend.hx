@@ -1,6 +1,6 @@
-package hxrl.backends;
+package hacks.backends;
 
-import hxrl.render.Panel;
+import hacks.render.Panel;
 
 /**
  * @author oscarcs

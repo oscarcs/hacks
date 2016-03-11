@@ -1,10 +1,10 @@
-package hxrl.ui;
+package hacks.ui;
 
-import hxrl.render.Panel;
-import hxrl.render.Camera;
-import hxrl.tile.Tiles;
-import hxrl.ui.UI.UIOptions;
-import hxrl.world.World;
+import hacks.render.Panel;
+import hacks.render.Camera;
+import hacks.tile.Tiles;
+import hacks.ui.UI.UIOptions;
+import hacks.world.World;
 
 /**
  * Class for a world map. Reads from the World 'ChunkType' array.

@@ -1,16 +1,16 @@
-package hxrl.world;
+package hacks.world;
 
-import hxrl.random.Random;
-import hxrl.render.Color;
-import hxrl.render.Color.ARGB;
-import hxrl.render.IRenderable;
-import hxrl.render.Panel;
-import hxrl.render.Panel.ScreenTile;
-import hxrl.render.Camera;
-import hxrl.tile.ITileable;
-import hxrl.tile.Tiles;
-import hxrl.tile.Tiles.RLTile;
-import hxrl.tile.TileUtil;
+import hacks.random.Random;
+import hacks.render.Color;
+import hacks.render.Color.ARGB;
+import hacks.render.IRenderable;
+import hacks.render.Panel;
+import hacks.render.Panel.ScreenTile;
+import hacks.render.Camera;
+import hacks.tile.ITileable;
+import hacks.tile.Tiles;
+import hacks.tile.Tiles.RLTile;
+import hacks.tile.TileUtil;
 
 /**
  * Represents and renders the currently-loaded 'static' map.

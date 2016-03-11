@@ -1,10 +1,10 @@
-package hxrl.entity;
+package hacks.entity;
 
-import hxrl.render.IRenderable;
-import hxrl.render.Panel;
-import hxrl.render.Camera;
-import hxrl.render.Color;
-import hxrl.world.World;
+import hacks.render.IRenderable;
+import hacks.render.Panel;
+import hacks.render.Camera;
+import hacks.render.Color;
+import hacks.world.World;
 
 /**
  * ...

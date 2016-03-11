@@ -1,12 +1,13 @@
-package hxrl.tile;
+package hacks.tile;
 
+import hacks.RL;
 import haxe.Json;
-import hxrl.render.TileRenderComponent;
-import hxrl.tile.Tiles.RLTile;
-import hxrl.render.Color;
-import hxrl.render.Color.ARGB;
-import hxrl.render.IRenderComponent;
-import hxrl.entity.Entity;
+import hacks.render.TileRenderComponent;
+import hacks.tile.Tiles.RLTile;
+import hacks.render.Color;
+import hacks.render.Color.ARGB;
+import hacks.render.IRenderComponent;
+import hacks.entity	.Entity;
 
 typedef RLTile = {
 	var solid:Bool;

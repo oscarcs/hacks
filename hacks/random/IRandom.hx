@@ -1,4 +1,4 @@
-package hxrl.random;
+package hacks.random;
 
 /**
  * @author oscarcs

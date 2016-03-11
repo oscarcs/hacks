@@ -1,10 +1,10 @@
-package hxrl.tile;
+package hacks.tile;
 
-import hxrl.render.Color;
-import hxrl.render.Color.ARGB;
-import hxrl.render.TileRenderComponent;
-import hxrl.tile.Tiles.RLTile;
-import hxrl.world.World;
+import hacks.render.Color;
+import hacks.render.Color.ARGB;
+import hacks.render.TileRenderComponent;
+import hacks.tile.Tiles.RLTile;
+import hacks.world.World;
 
 /**
  * ...

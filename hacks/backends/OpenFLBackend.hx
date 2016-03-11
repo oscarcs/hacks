@@ -1,4 +1,4 @@
-package hxrl.backends;
+package hacks.backends;
 
 import openfl.Lib;
 import openfl.Assets;
@@ -11,9 +11,9 @@ import openfl.display.Tilesheet;
 import openfl.display.BitmapData;
 import openfl.utils.ByteArray;
 
-import hxrl.backends.IBackend;
-import hxrl.render.Panel;
-import hxrl.render.Color;
+import hacks.backends.IBackend;
+import hacks.render.Panel;
+import hacks.render.Color;
 
 /**
  * ...

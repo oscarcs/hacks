@@ -1,11 +1,11 @@
 {
-  "name": "hxRL",
-  "url" : "https://github.com/oscarcs/hxRL/",
+  "name": "hacks",
+  "url" : "https://github.com/oscarcs/hacks/",
   "license": "MIT",
   "tags": ["roguelike"],
-  "description": "Haxe roguelike library",
-  "version": "0.1.8",
-  "releasenote": "Remove parseArgs().",
+  "description": "Haxe roguelike framework",
+  "version": "0.2.0",
+  "releasenote": "Rename library.",
   "contributors": ["oscarcs"],
   "dependencies": {
   }

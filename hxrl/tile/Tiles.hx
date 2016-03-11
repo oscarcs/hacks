@@ -131,8 +131,6 @@ class Tiles
 			for (i in 0...json.rc.length)
 			{
 				var cur = json.rc[i];
-				var classname:Dynamic = renderComponentList.get(cur.rc);
-				cur.args = classname.parseArgs(cur.args);
 				tile.rc.push(getRenderComponent(cur.rc, cur.args));
 			}
 			Tiles.set(json.name, tile);

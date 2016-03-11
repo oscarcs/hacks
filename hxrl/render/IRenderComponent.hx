@@ -5,13 +5,10 @@ import hxrl.tile.Tiles.RLTile;
 
 /**
  * Render component base interface.
- * Note: all render component types need a parseArgs function.
  * @author oscarcs
  */
 interface IRenderComponent 
 {
-	
-	
 	//TODO: this method signature is an unwieldy, ungodly behemoth
 	/**
 	 * 

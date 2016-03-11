@@ -6,6 +6,7 @@ import hxrl.render.IRenderable;
 import hxrl.tile.Tiles.RLTile;
 
 /**
+ * Any drawable 'thing' that also holds a datastructure containing RLTiles.
  * @author oscarcs
  */
 interface ITileable extends IRenderable

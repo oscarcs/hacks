@@ -1,6 +1,7 @@
 package hxrl.render;
 
 /**
+ * Any 'thing' that can be drawn by a camera.
  * @author oscarcs
  */
 interface IRenderable 

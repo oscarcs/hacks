@@ -4,8 +4,8 @@
   "license": "MIT",
   "tags": ["roguelike"],
   "description": "Haxe roguelike framework",
-  "version": "0.2.0",
-  "releasenote": "Rename library.",
+  "version": "0.2.1",
+  "releasenote": "Fix Entity.hx move()",
   "contributors": ["oscarcs"],
   "dependencies": {
   }

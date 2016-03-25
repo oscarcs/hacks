@@ -29,7 +29,7 @@ class Entity implements IRenderable
 	
 	public function draw(p:Panel, c:Camera):Void
 	{
-		
+		return;
 	}
 	
 	public function canMove(xt:Int, yt:Int)
@@ -41,6 +41,9 @@ class Entity implements IRenderable
 	{
 		if(canMove(xt, yt))
 		{
+			this.x = xt;
+			this.y = yt;
+			
 			world.read(x, y).entity = null;
 			world.read(x, y)._ch = true;
 			world.read(xt, yt).entity = this;

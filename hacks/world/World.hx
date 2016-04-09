@@ -11,13 +11,14 @@ import hacks.tile.ITileable;
 import hacks.tile.Tiles;
 import hacks.tile.Tiles.RLTile;
 import hacks.tile.TileUtil;
+import hacks.timing.ITimeable;
 
 /**
  * Represents and renders the currently-loaded 'static' map.
  * Extend this class to generate and load a world.
  * @author oscarcs
  */
-class World implements IRenderable implements ITileable
+class World implements IRenderable implements ITileable implements ITimeable
 {
 	public var w:Int;
 	public var h:Int;
@@ -118,6 +119,11 @@ class World implements IRenderable implements ITileable
 				}
 			}
 		}
+	}
+	
+	public function step():Void
+	{
+		
 	}
 	
 	public function forceRedraw()

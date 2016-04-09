@@ -4,13 +4,14 @@ import hacks.render.IRenderable;
 import hacks.render.Panel;
 import hacks.render.Camera;
 import hacks.render.Color;
+import hacks.timing.ITimeable;
 import hacks.world.World;
 
 /**
  * ...
  * @author oscarcs
  */
-class Entity implements IRenderable
+class Entity implements IRenderable implements ITimeable
 {
 	public var x:Int;
 	public var y:Int;
@@ -32,21 +33,29 @@ class Entity implements IRenderable
 		return;
 	}
 	
+	public function step():Void
+	{
+		
+	}
+	
 	public function canMove(xt:Int, yt:Int)
 	{
 		return true;
 	}
 	
-	public function move(xt:Int, yt:Int)
+	public function move(nx:Int, ny:Int):Bool
 	{
-		if(canMove(xt, yt))
+		if(canMove(nx, ny) && world.read(ny, ny) != null)
 		{
-			this.x = xt;
-			this.y = yt;
+			this.x = nx;
+			this.y = ny;
 			
 			world.read(x, y).entity = null;
 			world.read(x, y)._ch = true;
-			world.read(xt, yt).entity = this;
+			world.read(nx, ny).entity = this;
+			
+			return true;
 		}
+		return false;
 	}
 }

@@ -74,7 +74,7 @@ class Panel
 	/**
 	 * Main rendering function
 	 * This code is designed so that any dependency on a rendering library
-	 * is abstracted into libhacks.backends
+	 * is abstracted into hacks.backends
 	 */
 	public function draw()
 	{

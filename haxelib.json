@@ -4,8 +4,8 @@
   "license": "MIT",
   "tags": ["roguelike"],
   "description": "Haxe roguelike framework",
-  "version": "0.2.1",
-  "releasenote": "Fix Entity.hx move()",
+  "version": "0.3.0",
+  "releasenote": "Add basic timing and scheduling functions.",
   "contributors": ["oscarcs"],
   "dependencies": {
   }

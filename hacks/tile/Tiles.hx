@@ -23,7 +23,7 @@ typedef RLTile = {
 }
 
 /**
- * Static list of tiles. Will eventually be loaded from file.
+ * Class for the loading of RLTile definitions
  * @author oscarcs
  */
 class Tiles

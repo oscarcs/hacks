@@ -4,8 +4,8 @@
   "license": "MIT",
   "tags": ["roguelike"],
   "description": "Haxe roguelike framework",
-  "version": "0.3.0",
-  "releasenote": "Add basic timing and scheduling functions.",
+  "version": "0.3.1",
+  "releasenote": "Edit Javadoc comments.",
   "contributors": ["oscarcs"],
   "dependencies": {
   }

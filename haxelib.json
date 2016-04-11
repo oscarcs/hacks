@@ -4,8 +4,8 @@
   "license": "MIT",
   "tags": ["roguelike"],
   "description": "Haxe roguelike framework",
-  "version": "0.3.1",
-  "releasenote": "Edit Javadoc comments.",
+  "version": "0.4.0",
+  "releasenote": "Add Vision.hx; Shadowcasting algorithm.",
   "contributors": ["oscarcs"],
   "dependencies": {
   }

@@ -1,4 +1,5 @@
-package hacks.world;
+package world;
+import hacks.world.World;
 
 /*
  * Some algorithms ported from the Java implementation in SquidLib.
@@ -14,7 +15,7 @@ package hacks.world;
 class Vision
 {
 	private var lightMap:Array<Array<Float>> = [[]];
-		
+	
 	public var world:World;
 	public var startX:Int;
 	public var startY:Int;
@@ -74,6 +75,7 @@ class Vision
 		this.startY = startY;
 		this.radius = radius;
 		
+		lightMap = [for (i in 0...world.w) [for (j in 0...world.h) 0]];
 		lightMap[startX][startY] = 1; //light the starting cell
 		
 		var diagonals = [

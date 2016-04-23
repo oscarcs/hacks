@@ -3,15 +3,14 @@ import haxerl.*;
 
 typedef HSV = {
 	var h:Float; //0-360
-	var s:Float; //0-100
-	var v:Float; //0-100
+	var s:Float; //0-1
+	var v:Float; //0-1
 }
 
-//0-255
 typedef RGB = {
-	var r:Float;
-	var g:Float;
-	var b:Float;
+	var r:Float; //0-255
+	var g:Float; //0-255
+	var b:Float; //0-255
 }
 
 /**
@@ -69,8 +68,8 @@ class Color
 	public static function HSVtoRGB(hsv:HSV):RGB
 	{
 		var H:Float = hsv.h / 360;
-		var S:Float = hsv.s / 100;
-		var V:Float = hsv.v / 100;
+		var S:Float = hsv.s;
+		var V:Float = hsv.v;
 		
 		var R:Float;
 		var G:Float;
@@ -152,6 +151,6 @@ class Color
 			h += 360;
 		}
 
-		return { h:h, s:s * 100, v:v * 100 };
+		return { h:h, s:s, v:v };
 	}
 }

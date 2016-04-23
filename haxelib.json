@@ -4,8 +4,8 @@
   "license": "MIT",
   "tags": ["roguelike"],
   "description": "Haxe roguelike framework",
-  "version": "0.4.1",
-  "releasenote": "Remove alpha field from ARGB typedef -> RGB",
+  "version": "0.4.2",
+  "releasenote": "Change range of HSV fields to be more standard.",
   "contributors": ["oscarcs"],
   "dependencies": {
   }

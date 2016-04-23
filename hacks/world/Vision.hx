@@ -14,7 +14,7 @@ package hacks.world;
 class Vision
 {
 	private var lightMap:Array<Array<Float>> = [[]];
-	
+		
 	public var world:World;
 	public var startX:Int;
 	public var startY:Int;

@@ -2,7 +2,7 @@ package hacks.world;
 
 import hacks.random.Random;
 import hacks.render.Color;
-import hacks.render.Color.ARGB;
+import hacks.render.Color.RGB;
 import hacks.render.IRenderable;
 import hacks.render.Panel;
 import hacks.render.Panel.ScreenTile;

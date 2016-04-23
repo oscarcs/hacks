@@ -5,15 +5,15 @@ import haxe.Json;
 import hacks.render.TileRenderComponent;
 import hacks.tile.Tiles.RLTile;
 import hacks.render.Color;
-import hacks.render.Color.ARGB;
+import hacks.render.Color.RGB;
 import hacks.render.IRenderComponent;
 import hacks.entity	.Entity;
 
 typedef RLTile = {
 	var solid:Bool;
 	var rc:Array<IRenderComponent>;
-	var fg:ARGB;
-	var bg:ARGB;
+	var fg:RGB;
+	var bg:RGB;
 	var _ch:Bool;
 	
 	//TODO: ECS this too?

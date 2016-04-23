@@ -67,13 +67,13 @@ class OpenFLBackend implements IBackend
 					
 					if (cur.bg != Color.BLACK)
 					{
-						rArr[0] = Color.ARGBtoHex(cur.bg);
-						gArr[0] = Color.ARGBtoHex(cur.bg);
-						bArr[0] = Color.ARGBtoHex(cur.bg);				
+						rArr[0] = Color.RGBtoHex(cur.bg);
+						gArr[0] = Color.RGBtoHex(cur.bg);
+						bArr[0] = Color.RGBtoHex(cur.bg);				 
 	
-						rArr[255] = Color.ARGBtoHex(cur.fg);
-						gArr[255] = Color.ARGBtoHex(cur.fg);
-						bArr[255] = Color.ARGBtoHex(cur.fg);
+						rArr[255] = Color.RGBtoHex(cur.fg);
+						gArr[255] = Color.RGBtoHex(cur.fg);
+						bArr[255] = Color.RGBtoHex(cur.fg);
 						
 						surface.paletteMap(surface, new Rectangle(x * panel.tile_w, y * panel.tile_h, panel.tile_w, panel.tile_h),
 							new Point(x * panel.tile_w, y * panel.tile_h), rArr, gArr, bArr, null);

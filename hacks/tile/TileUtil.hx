@@ -1,7 +1,7 @@
 package hacks.tile;
 
 import hacks.render.Color;
-import hacks.render.Color.ARGB;
+import hacks.render.Color.RGB;
 import hacks.render.TileRenderComponent;
 import hacks.tile.Tiles.RLTile;
 import hacks.world.World;
@@ -35,7 +35,7 @@ class TileUtil
 	 * @param	bg
 	 * @param	wrapWidth
 	 */
-	public static function drawText(xt:Int, yt:Int, context:ITileable, text:String, fg:ARGB, bg:ARGB, ?wrapWidth:Int):Void
+	public static function drawText(xt:Int, yt:Int, context:ITileable, text:String, fg:RGB, bg:RGB, ?wrapWidth:Int):Void
 	{
 		if (wrapWidth == null) wrapWidth = context.w - 1;
 		var x:Int = xt;

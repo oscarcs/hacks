@@ -8,8 +8,7 @@ typedef HSV = {
 }
 
 //0-255
-typedef ARGB = {
-	var a:Float;
+typedef RGB = {
 	var r:Float;
 	var g:Float;
 	var b:Float;
@@ -21,13 +20,13 @@ typedef ARGB = {
  */
 class Color
 {
-	public static var WHITE:ARGB = 	{	a:255,	r:255, 	g:255, 	b:255 	};
-	public static var BLACK:ARGB = 	{	a:255,	r:0, 	g:0, 	b:0 	};
-	public static var RED:ARGB = 	{	a:255,	r:255, 	g:0, 	b:0 	};
-	public static var GREEN:ARGB = 	{	a:255,	r:0, 	g:255, 	b:0 	};
-	public static var BLUE:ARGB = 	{	a:255,	r:0, 	g:0, 	b:255 	};
+	public static var WHITE:RGB = 	{	r:255, 	g:255, 	b:255 	};
+	public static var BLACK:RGB = 	{	r:0, 	g:0, 	b:0 	};
+	public static var RED:RGB = 	{	r:255, 	g:0, 	b:0 	};
+	public static var GREEN:RGB = 	{	r:0, 	g:255, 	b:0 	};
+	public static var BLUE:RGB = 	{	r:0, 	g:0, 	b:255 	};
 	
-	private static var colorList:Map<String, ARGB> =
+	private static var colorList:Map<String, RGB> =
 	[
 		'white' => Color.WHITE,
 		'black' => Color.BLACK,
@@ -36,40 +35,38 @@ class Color
 		'blue'	=> Color.BLUE
 	];
 	
-	private static function set(name:String, color:ARGB)
+	private static function set(name:String, color:RGB)
 	{
 		Color.colorList.set(name, color);
 	}
 	
-	public static function get(name:String):ARGB
+	public static function get(name:String):RGB
 	{
 		return Color.colorList.get(name);
 	}
 	
-	public static function ARGBtoHex(rgb:ARGB):Int
+	public static function RGBtoHex(rgb:RGB):Int
 	{
-		var x:String = '0x' + StringTools.hex(Std.int(rgb.a), 2)
-							+ StringTools.hex(Std.int(rgb.r), 2)
+		var x:String = '0x'	+ StringTools.hex(Std.int(rgb.r), 2)
 							+ StringTools.hex(Std.int(rgb.g), 2)
 							+ StringTools.hex(Std.int(rgb.b), 2);
 		return Std.parseInt(x);
 	}
 	
-	public static function HexToARGB(hex:Int):ARGB
+	public static function HexToRGB(hex:Int):RGB
 	{
 		var cs:String = StringTools.hex(hex, 8);
 
-		var a:Float = Std.parseInt("0x" + cs.substr(0, 2));
-		var r:Float = Std.parseInt("0x" + cs.substr(2, 2));
-		var g:Float = Std.parseInt("0x" + cs.substr(4, 2));
-		var b:Float = Std.parseInt("0x" + cs.substr(6, 2));
+		var r:Float = Std.parseInt("0x" + cs.substr(0, 2));
+		var g:Float = Std.parseInt("0x" + cs.substr(2, 2));
+		var b:Float = Std.parseInt("0x" + cs.substr(4, 2));
 		
 		
-		var conv:ARGB = { a:a, r:r, g:g, b:b };
+		var conv:RGB = { r:r, g:g, b:b };
 		return conv;
 	}
 	
-	public static function HSVtoARGB(hsv:HSV):ARGB
+	public static function HSVtoRGB(hsv:HSV):RGB
 	{
 		var H:Float = hsv.h / 360;
 		var S:Float = hsv.s / 100;
@@ -105,15 +102,15 @@ class Color
 			G = gVar * 255;
 			B = bVar * 255;
 		}
-		return { a:255, r:R, g:G, b:B };
+		return { r:R, g:G, b:B };
 	}
 	
-	public static function ARGBtoHSV(argb:ARGB):HSV
+	public static function RGBtoHSV(rgb:RGB):HSV
 	{
 		var r:Float, g:Float, b:Float;
-		r = argb.r / 255;
-		g = argb.g / 255;
-		b = argb.b / 255;
+		r = rgb.r / 255;
+		g = rgb.g / 255;
+		b = rgb.b / 255;
 
 		var h:Float, s:Float, v:Float;
 		var min:Float, max:Float, delta:Float;

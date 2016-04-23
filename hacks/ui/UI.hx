@@ -1,7 +1,7 @@
 package hacks.ui;
 
 import hacks.render.Color;
-import hacks.render.Color.ARGB;
+import hacks.render.Color.RGB;
 import hacks.render.Camera;
 import hacks.render.IRenderable;
 import hacks.render.Panel;
@@ -16,14 +16,14 @@ import hacks.tile.TileUtil;
 typedef UIOptions = {
 	@:optional var hasBorder:Bool;
 	@:optional var title:String;
-	@:optional var fg:ARGB;
-	@:optional var bg:ARGB;
+	@:optional var fg:RGB;
+	@:optional var bg:RGB;
 	@:optional var edgeName:String;
 	@:optional var backName:String;
 	
 	//title
-	@:optional var title_fg:ARGB;
-	@:optional var title_bg:ARGB;
+	@:optional var title_fg:RGB;
+	@:optional var title_bg:RGB;
 	@:optional var title_x:Int;
 }
 
@@ -87,8 +87,8 @@ class UI implements IRenderable implements ITileable
 		}
 		if (options.title != "")
 		{
-			var fg:ARGB = options.fg;
-			var bg:ARGB = options.bg;
+			var fg:RGB = options.fg;
+			var bg:RGB = options.bg;
 			var title_x:Int = Std.int((this.w - options.title.length) / 2);
 			
 			if (options.title_fg != null) fg = options.title_fg;

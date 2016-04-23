@@ -1,11 +1,11 @@
 package hacks.render;
 
 import hacks.RL;
-import hacks.render.Color.ARGB;
+import hacks.render.Color.RGB;
 
 typedef ScreenTile = {
-	var fg:ARGB;	//foreground
-	var bg:ARGB;	//background
+	var fg:RGB;	//foreground
+	var bg:RGB;	//background
 	var value:Int;	//reference to a tile or ASCII char.
 	var _ch:Bool;	//whether this tile needs redrawing
 	@:optional var _lock:IRenderable;	//mutex
@@ -53,7 +53,7 @@ class Panel
 		return screenBuffer[xt + yt * w];
 	}
 	
-	public function write(xt:Int, yt:Int, fg:ARGB, bg:ARGB, value:Int, ?accessor:IRenderable)
+	public function write(xt:Int, yt:Int, fg:RGB, bg:RGB, value:Int, ?accessor:IRenderable)
 	{
 		if (xt >= 0 && yt >= 0 && xt < w && yt < h)
 		{
